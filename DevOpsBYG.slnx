@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../DevOpsBygController/DevOpsBygController.csproj" />
+  <Project Path="../DevOpsBygControllerTests/DevOpsBygControllerTests.csproj" />
+  <Project Path="DevOpsBYG.csproj" />
+</Solution>
