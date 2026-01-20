@@ -9,6 +9,7 @@
         <label for="gsearch">Busqueda:</label>
         <input type="search" id="gsearch" name="gsearch">
       </form>
+      <br />
     </div>
   </header>
 
