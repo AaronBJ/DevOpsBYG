@@ -5,7 +5,10 @@
   <header>
 
     <div>
-      esto es el inventario
+      <form>
+        <label for="gsearch">Busqueda:</label>
+        <input type="search" id="gsearch" name="gsearch">
+      </form>
     </div>
   </header>
 
