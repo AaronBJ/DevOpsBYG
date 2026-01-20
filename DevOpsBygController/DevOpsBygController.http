@@ -1,0 +1,6 @@
+@DevOpsBygController_HostAddress = http://localhost:5064
+
+GET {{DevOpsBygController_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

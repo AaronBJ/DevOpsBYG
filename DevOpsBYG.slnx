@@ -1,5 +1,8 @@
 <Solution>
-  <Project Path="../DevOpsBygController/DevOpsBygController.csproj" />
-  <Project Path="../DevOpsBygControllerTests/DevOpsBygControllerTests.csproj" />
-  <Project Path="DevOpsBYG.csproj" />
+  <Project Path="ByGUI/bygui.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="DevOpsBygController/DevOpsBygController.csproj" />
+  <Project Path="DevOpsBygControllerTests/DevOpsBygControllerTests.csproj" />
 </Solution>
