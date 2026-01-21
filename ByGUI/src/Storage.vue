@@ -28,6 +28,8 @@
       <input type="number" id="cant" name="cant" />
       &nbsp;
       <input type="image" />
+      &nbsp;
+      <input type="button" value="Detalles" />
 
     </div>
   </header>
