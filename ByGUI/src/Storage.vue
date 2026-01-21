@@ -10,17 +10,25 @@
         <input type="search" id="gsearch" name="gsearch">
       </form>
       <br />
-      <input type="button" value="Agregar" >
+      <input type="button" value="Agregar">
       <br />
       <hr />
-      ID
+      <label for="id">ID</label>
       &nbsp;
-      DESCRIPCION
+      <label for="desc">DESCRIPCION</label>
       &nbsp;
-      CANTIDAD
+      <label for="cant">CANTIDAD</label>
       &nbsp;
-      IMAGEN
+      <label for="img">IMAGEN</label>
       <hr>
+      <input type="number" id="id" name="id" />
+      &nbsp;
+      <input type="text" id="desc" name="desc" />
+      &nbsp;
+      <input type="number" id="cant" name="cant" />
+      &nbsp;
+      <input type="image" />
+
     </div>
   </header>
 
