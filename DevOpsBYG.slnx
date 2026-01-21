@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="BygDevOpsManager/BygDevOpsManager.csproj" Id="2fb6ea4d-b14f-4519-b0ac-c502ec5b421d" />
+  <Project Path="BygModels/BygModels.csproj" Id="6553d036-d031-4bc1-bf95-64835761b27e" />
   <Project Path="ByGUI/bygui.esproj">
     <Build />
     <Deploy />
