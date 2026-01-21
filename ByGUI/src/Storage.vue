@@ -30,6 +30,10 @@
       <input type="image" />
       &nbsp;
       <input type="button" value="Detalles" />
+      <br />
+      <input type="button" value="Editar" />
+      &nbsp;
+      <input type="button" value="Eliminar" />
 
     </div>
   </header>
