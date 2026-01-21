@@ -34,7 +34,7 @@
       <input type="button" value="Editar" />
       &nbsp;
       <input type="button" value="Eliminar" />
-
+      <hr />
     </div>
   </header>
 
