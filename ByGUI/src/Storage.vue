@@ -12,6 +12,15 @@
       <br />
       <input type="button" value="Agregar" >
       <br />
+      <hr />
+      ID
+      &nbsp;
+      DESCRIPCION
+      &nbsp;
+      CANTIDAD
+      &nbsp;
+      IMAGEN
+      <hr>
     </div>
   </header>
 
