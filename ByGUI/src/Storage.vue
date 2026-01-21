@@ -10,6 +10,8 @@
         <input type="search" id="gsearch" name="gsearch">
       </form>
       <br />
+      <input type="button" value="Agregar" >
+      <br />
     </div>
   </header>
 
