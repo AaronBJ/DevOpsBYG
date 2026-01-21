@@ -35,6 +35,12 @@
       &nbsp;
       <input type="button" value="Eliminar" />
       <hr />
+      <br />
+      <input type="button" value="Ver todos" />
+      <br />
+      <label for="nregis">numero de registros por pagina:</label>
+      <br />
+      <input type="number" id="nregis" name="nregis"/>
     </div>
   </header>
 
