@@ -1,4 +1,37 @@
 <script setup lang="ts">
+  var inventoryData: InventoryModel [] = [];
+
+  var isTestingMode = true;
+
+  interface InventoryModel {
+    ID: number,
+    DESCRIPTION: string,
+    QUANTITY: number,
+    IMAGE: string,
+  }
+  if (isTestingMode) {
+    alert("Esta en modo de prueba: Datos falsos");
+
+    const inventoryMockDataRecords: InventoryModel[] = [];
+    inventoryMockDataRecords.push({ ID:0, DESCRIPTION: "BRK 356 satinado",QUANTITY: 1,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:1, DESCRIPTION: "BRK 420 satinado",QUANTITY: 11,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:2, DESCRIPTION: "BRK 1364 satinado",QUANTITY: 12,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:3, DESCRIPTION: "BRK 123 satinado",QUANTITY: 16,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:4, DESCRIPTION: "BRK 422 satinado",QUANTITY: 4,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:5, DESCRIPTION: "BRK 344 satinado",QUANTITY: 7,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:6, DESCRIPTION: "BRK 578 satinado",QUANTITY: 8,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:7, DESCRIPTION: "BRK 975 satinado",QUANTITY: 3,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:8, DESCRIPTION: "BRK 645 satinado",QUANTITY: 1,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:9, DESCRIPTION: "BRK 345 satinado",QUANTITY: 5,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:10, DESCRIPTION: "BRK 6654 satinado",QUANTITY: 9,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:11, DESCRIPTION: "BRK 653 satinado",QUANTITY: 3,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:12, DESCRIPTION: "BRK 436 satinado",QUANTITY: 2,IMAGE: "imagen"});
+    inventoryMockDataRecords.push({ ID:13, DESCRIPTION: "BRK 834 satinado",QUANTITY: 8,IMAGE: "imagen"});
+
+    inventoryData = inventoryMockDataRecords;
+  }
+
+
 </script>
 
 <template>
@@ -31,235 +64,16 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
+          <tr v-for="item in inventoryData ">
+            <td> {{item.ID}} </td>
+            <td> {{item.DESCRIPTION}}</td>
+            <td> {{item.QUANTITY}} </td>
+            <td> {{item.IMAGE}} </td>
             <td>
               <input type="button" value="i" />
             </td>
           </tr>
 
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
-
-          <tr>
-            <td> 1 </td>
-            <td> BRK 356 </td>
-            <td> 12 </td>
-            <td> :) </td>
-            <td>
-              <input type="button" value="i" />
-            </td>
-          </tr>
         </tbody>
 
       </table>
