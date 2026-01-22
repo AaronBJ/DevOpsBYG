@@ -1,31 +1,6 @@
 <script setup lang="ts">
   import axios from "axios";
-
-  let inventoryData: InventoryModel[] = [];
-  var textTesting: string = "asd";
-  function textTestingType() {
-    console.log('qwe')
-    textTesting = "awasd";
-  }
-
-  //async function getAll () {
-
-  //  console.log("testing")
-  //  try {
-  //    const response = await axios.get("https://localhost:44329/Inventory");
-
-  //    var data = response.data.result;
-  //    return data;
-  //  }
-  //  catch (error) {
-  //    console.log(error);
-  //  }
-
-  //}
-
-  
-
-  var isTestingMode = false;
+  import { ref } from "vue";
 
   interface InventoryModel {
     id: number,
@@ -34,21 +9,20 @@
     image: string,
   }
 
-  console.log("el valor fuera del get all 1");
-  console.log(inventoryData);
+  const inventoryData = ref<InventoryModel[]> = ([]);
 
-  //getAll().then(x => {
-  //  console.log("el valor dentro del get all 2");
-  //  console.log(x);
-
-  //  inventoryData = x;
-  //}).catch(err => {
-  //  console.log(err);
-  //}).finally();
-
-  console.log("el valor fuera del get all 3");
-  console.log(inventoryData);
-
+  async function getAll () {
+    try {
+      const response = await axios.get("https://localhost:44329/Inventory");
+      var data = response.data.result;
+      inventoryData.values = response.data.result;
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+  
+  getAll();
 
   
 </script>
@@ -69,9 +43,6 @@
       </div>
     </div>
 
-    <input type="text" @input="textTestingType" />
-
-    {{textTesting}}
     {{inventoryData}}
 
     <div class="row table-responsive table-scroll-container">
