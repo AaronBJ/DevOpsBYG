@@ -1,5 +1,4 @@
 ﻿using BygDevOpsManager.inventory;
-using BygModels.Inventory.dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsBygController.Controllers

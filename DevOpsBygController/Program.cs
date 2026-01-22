@@ -1,14 +1,18 @@
+
+using BygDevOpsManager.inventory;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddTransient<IInventoryManager, InventoryManager>();//inyeccion de dependencia del inventory manager
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo
     {
+
         Title = "myAPI",
         Version = "v1"
 
