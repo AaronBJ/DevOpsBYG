@@ -14,7 +14,7 @@
   async function getAll() {
     try {
       const response = await axios.get("https://localhost:44329/Inventory");
-      inventoryData.value = response.data.result; // <- aquí
+      inventoryData.value = response.data; // <- aquí
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    {{ inventoryData }}
+
 
     <div class="row table-responsive table-scroll-container">
       <table class="table table-hover">

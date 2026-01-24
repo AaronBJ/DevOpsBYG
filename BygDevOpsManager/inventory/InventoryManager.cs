@@ -1,4 +1,5 @@
-﻿using BygModels.inventory.model;
+﻿using BygModels.inventory;
+using BygModels.inventory.model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,24 +8,17 @@ namespace BygDevOpsManager.inventory
 {
     public class InventoryManager : IInventoryManager
     {
+        private IInventoryRepository _inventory;
+        public InventoryManager(IInventoryRepository inventory) { 
+            _inventory = inventory;
+            
+        }
         public async Task<IEnumerable<InventoryBaseModel>> GetAll()
         {
             var lista = new List<InventoryBaseModel>();
 
-            for (var x = 1; x < 10; x++)
-            {
-                lista.Add(new InventoryBaseModel()
-                {
-
-                    Id = x,
-                    Description = "BRK 45" + x,
-                    Quantity = x + 1,
-                    Image = "un texto"
-
-
-                });
-            }
-            return lista;
+            var y = await _inventory.getAll();
+            return y;
         }
     }
 }

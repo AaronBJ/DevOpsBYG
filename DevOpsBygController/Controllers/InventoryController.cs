@@ -1,4 +1,5 @@
 ﻿using BygDevOpsManager.inventory;
+using BygModels.Inventory.dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsBygController.Controllers
@@ -17,8 +18,20 @@ namespace DevOpsBygController.Controllers
         [HttpGet(Name = "GetAllInventory")]
 
         public async Task<IActionResult> Get() { 
-            var result = _inventoryManager.GetAll();
-            return Ok(result);
+            var result = await _inventoryManager.GetAll();
+            var dto = new List<InventoryResponseDto>();
+            foreach (var item in result)
+            {
+                var x = new InventoryResponseDto()
+                {
+                    Id = item.Id,
+                    Description = item.Description,
+                    Quantity = item.Quantity,
+                    Image = item.Image
+                };
+                dto.Add(x);
+            }
+            return Ok(dto);
 
         
         }
