@@ -8,6 +8,7 @@ namespace BygModels.inventory
 
     public interface IInventoryRepository
     {
-        public Task<IEnumerable<InventoryBaseModel>> getAll();
+        public Task<IEnumerable<InventoryBaseModel>> GetAllAsync();
+        public Task<InventoryBaseModel> InsertAsync(InventoryBaseModel model);
     }
 }
