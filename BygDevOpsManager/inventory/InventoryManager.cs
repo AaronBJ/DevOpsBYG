@@ -13,12 +13,17 @@ namespace BygDevOpsManager.inventory
             _inventory = inventory;
             
         }
-        public async Task<IEnumerable<InventoryBaseModel>> GetAll()
+        public async Task<IEnumerable<InventoryBaseModel>> GetAllAsync()
         {
             var lista = new List<InventoryBaseModel>();
 
             var y = await _inventory.getAll();
             return y;
+        }
+
+        public Task<InventoryBaseModel> InsertAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

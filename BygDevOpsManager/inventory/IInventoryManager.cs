@@ -7,6 +7,7 @@ namespace BygDevOpsManager.inventory
 {
     public interface IInventoryManager
     {
-        public Task<IEnumerable<InventoryBaseModel>> GetAll();
+        public Task<IEnumerable<InventoryBaseModel>> GetAllAsync();
+        public Task<InventoryBaseModel> InsertAsync();
     }
 }
