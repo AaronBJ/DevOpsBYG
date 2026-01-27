@@ -15,18 +15,18 @@
 
   const inventoryData = ref<InventoryModel[]>([]);
 
-  /*
-  async function create() {
+  
+  async function create(data:InventoryModel) {
     try {
-      const response = await axios.post("https://localhost:44329/Inventory");
+      const response = await axios.post("https://localhost:44329/Inventory",data);
       inventoryData.value = response.data; // <- aquí
     } catch (error) {
       console.log(error);
     }
   }
-  */
+  
 
-  function createOnClick() {
+  async function createOnClick() {
 
     const data: InventoryModel = {
       id: 0,
@@ -35,7 +35,7 @@
       image: viewModelImage
 
     }
-    console.log(data);
+    await create(data);
   }
   
 
