@@ -1,5 +1,6 @@
 ﻿using BygModels.inventory;
 using BygModels.inventory.model;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,13 +18,15 @@ namespace BygDevOpsManager.inventory
         {
             var lista = new List<InventoryBaseModel>();
 
-            var y = await _inventory.getAll();
+            var y = await _inventory.GetAllAsync();
             return y;
         }
 
-        public Task<InventoryBaseModel> InsertAsync()
+        public async Task<InventoryBaseModel> InsertAsync(InventoryBaseModel model)
         {
-            throw new NotImplementedException();
+            var modelToReturn = await _inventory.InsertAsync(model);
+
+            return modelToReturn;
         }
     }
 }
