@@ -68,7 +68,10 @@
             <td>{{ item.description }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.image }}</td>
-            <td><input type="button" value="i" /></td>
+            <td><button type="button" class="btn btn-primary" title="detalles" ><i class="bi bi-info-circle text-blue"></i></button>
+
+
+            </td>
           </tr>
         </tbody>
       </table>
