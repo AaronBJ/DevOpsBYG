@@ -1,12 +1,20 @@
 <script setup lang="ts">
   import axios from "axios";
   import { ref, onMounted } from "vue";
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
 
   interface InventoryModel {
     id: number;
     description: string;
     quantity: number;
     image: string;
+  }
+
+  function goTo(route:string) {
+    console.log("Ir a:", route);
+    router.push('/' + route)
   }
 
   const inventoryData = ref<InventoryModel[]>([]);
@@ -36,7 +44,7 @@
       </div>
 
       <div class="col offset-1">
-        <input type="button" class="btn btn-primary" value="Agregar" />
+        <input @click="goTo('inventarioCrear')" type="button" class="btn btn-primary" value="Agregar" />
       </div>
     </div>
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
   import axios from "axios";
   import { ref, onMounted } from "vue";
+  import { useRouter } from "vue-router";
+  const router = useRouter();
 
   interface InventoryModel {
     id: number;
@@ -8,6 +10,12 @@
     quantity: number;
     image: string;
   }
+
+  function goTo(route: string) {
+    console.log("Ir a:", route);
+    router.push('/' + route)
+  }
+
 
   var viewModelDescription = "";
   var viewModelQuantity = 0;
@@ -18,10 +26,13 @@
   
   async function create(data:InventoryModel) {
     try {
-      const response = await axios.post("https://localhost:44329/Inventory",data);
+      const response = await axios.post("https://localhost:44329/Inventory", data);
       inventoryData.value = response.data; // <- aquí
     } catch (error) {
       console.log(error);
+    }
+    finally {
+      goTo("inventario")
     }
   }
   
