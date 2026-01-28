@@ -58,7 +58,7 @@
             <th>DESCRIPCION</th>
             <th>CANTIDAD</th>
             <th>IMAGEN</th>
-            <th>DETALLES</th>
+            <th>OPCIONES</th>
           </tr>
         </thead>
 
@@ -71,8 +71,8 @@
             <td><button type="button" class="btn btn-primary" title="detalles" ><i class="bi bi-info-circle "></i></button>
             &nbsp;
             <button type="button" class="btn btn-warning" title="editar"> <i class="bi bi-pen "></i>  </button>
-
-
+            &nbsp;
+            <button type="button" class="btn btn-danger" title="eliminar"> <i class="bi bi-trash"></i> </button>
             </td>
           </tr>
         </tbody>
