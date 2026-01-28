@@ -70,7 +70,7 @@
             <td>{{ item.image }}</td>
             <td><button type="button" class="btn btn-primary" title="detalles" ><i class="bi bi-info-circle "></i></button>
             &nbsp;
-            <button type="button" class="btn btn-warning" title="editar"> <i class="bi bi-pen "></i>  </button>
+            <button type="button" @click="goTo('inventarioEditar')" class="btn btn-warning" title="editar"> <i class="bi bi-pen "></i>  </button>
             &nbsp;
             <button type="button" class="btn btn-danger" title="eliminar"> <i class="bi bi-trash"></i> </button>
             </td>
