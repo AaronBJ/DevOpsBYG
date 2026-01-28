@@ -68,7 +68,9 @@
             <td>{{ item.description }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.image }}</td>
-            <td><button type="button" class="btn btn-primary" title="detalles" ><i class="bi bi-info-circle text-blue"></i></button>
+            <td><button type="button" class="btn btn-primary" title="detalles" ><i class="bi bi-info-circle "></i></button>
+            &nbsp;
+            <button type="button" class="btn btn-warning" title="editar"> <i class="bi bi-pen "></i>  </button>
 
 
             </td>
