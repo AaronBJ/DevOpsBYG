@@ -10,5 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="public\js\models\" />
+    <Folder Include="src\components\sharedComponents\" />
+    <Folder Include="src\homeViews\" />
   </ItemGroup>
 </Project>
