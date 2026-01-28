@@ -16,10 +16,10 @@
     <div :class="['side-menu', { open: menuOpen }]">
       <h4 class="menu-title">Menú</h4>
       <ul>
-        <li @click="goTo('home')">🏠 Inicio</li>
-        <li @click="goTo('perfil')">👤 Perfil</li>
-        <li @click="goTo('configuracion')">⚙️ Configuración</li>
-        <li @click="goTo('logout')">🚪 Cerrar sesión</li>
+        <li @click="goTo('')"><i class="bi bi-house"></i> Inicio</li>
+        <li @click="goTo('inventario')"><i class="bi bi-archive"></i> Inventario</li>
+        <!--<li @click="goTo('configuracion')">⚙️ Configuración</li>
+        <li @click="goTo('logout')">🚪 Cerrar sesión</li>-->
       </ul>
     </div>
   </div>
@@ -40,7 +40,7 @@
       goTo(route) {
         this.menuOpen = false;
         console.log("Ir a:", route);
-        // this.$router.push('/' + route)
+         this.$router.push('/' + route)
       }
     }
   };

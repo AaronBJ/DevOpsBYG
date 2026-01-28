@@ -1,5 +1,4 @@
 <template>
-  <sharedHeader />
   <div class="home">
     <h1>Bienvenido</h1>
     <p>Esta es la página de inicio</p>
@@ -9,7 +8,6 @@
 </template>
 
 <script setup>
-  import sharedHeader from "../components/sharedComponents/Header.vue"
 
 </script>
 
