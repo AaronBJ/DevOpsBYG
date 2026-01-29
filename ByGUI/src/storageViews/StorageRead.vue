@@ -12,9 +12,15 @@
     image: string;
   }
 
-  function goTo(route:string) {
+  function goToEdit(route: string, Id:number) {
     console.log("Ir a:", route);
-    router.push('/' + route)
+    //router.push({ name: route, params: { Id: Id } });
+    router.push(route + "?id="+Id)
+  }
+
+  function goTo(route: string) {
+    console.log("Ir a:", route);
+    router.push ('/' + route)
   }
 
   const inventoryData = ref<InventoryModel[]>([]);
@@ -70,7 +76,7 @@
             <td>{{ item.image }}</td>
             <td><button type="button" class="btn btn-primary" title="detalles" ><i class="bi bi-info-circle "></i></button>
             &nbsp;
-            <button type="button" @click="goTo('inventarioEditar')" class="btn btn-warning" title="editar"> <i class="bi bi-pen "></i>  </button>
+            <button type="button" @click="goToEdit('inventarioEditar', item.id)" class="btn btn-warning" title="editar"> <i class="bi bi-pen "></i>  </button>
             &nbsp;
             <button type="button" class="btn btn-danger" title="eliminar"> <i class="bi bi-trash"></i> </button>
             </td>

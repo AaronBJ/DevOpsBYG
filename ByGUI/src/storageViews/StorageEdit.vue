@@ -13,17 +13,22 @@ interface InventoryModel {
   image: string;
 }
 
+
+
+
 function goTo(route: string) {
   router.push("/" + route);
 }
 
 /* ViewModel */
-const viewModelId = ref<number>(0);
+const viewModelId = route.query.id;
 const viewModelDescription = ref<string>("");
 const viewModelQuantity = ref<number>(0);
 const viewModelImage = ref<string>("");
 
-/* Cargar datos al entrar */
+
+
+/* Cargar datos al entrar 
 onMounted(async () => {
   try {
     const id = Number(route.params.id);
@@ -69,6 +74,15 @@ async function updateOnClick() {
     <div class="row">
       <div class="col-12">
         <form>
+          <div class="row">
+            <div class="col-12">
+              <label>ID:</label>
+              <input class="form-control"
+                     type="text"
+                     readonly
+                     v-model="viewModelId" />
+            </div>
+          </div>
           <div class="row">
             <div class="col-12">
               <label>Descripción:</label>

@@ -19,6 +19,7 @@ export default createRouter({
     {
       path: '/inventarioEditar',
       component: () => import('./storageViews/StorageEdit.vue'),
+
     }
   ],
 })
