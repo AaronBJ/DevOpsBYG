@@ -57,5 +57,21 @@ namespace DevOpsBygController.Controllers
             dto.Image = result.Image;
             return Ok(dto);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] InventoryRequestDto requestDto){
+            var model = new InventoryBaseModel();
+            model.Id = requestDto.Id;
+            model.Description = requestDto.Description;
+            model.Quantity = requestDto.Quantity;
+            model.Image = requestDto.Image;
+            var result = await _inventoryManager.UpdateAsync(id ,model);
+            var dto = new InventoryResponseDto(); 
+            dto.Id = result.Id;
+            dto.Description = result.Description;
+            dto.Quantity = result.Quantity;
+            dto.Image = result.Image;
+            return Ok(dto);
+        }
     }
 }

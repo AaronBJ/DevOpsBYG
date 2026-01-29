@@ -28,6 +28,14 @@ namespace BygDevOpsManager.inventory
 
             return modelToReturn;
         }
+
+        public async Task<InventoryBaseModel> UpdateAsync(int id, InventoryBaseModel model)
+        {
+            var elementsToReturn = await _inventory.UpdateAsync(id, model);
+
+            return elementsToReturn;
+        }
+
     }
 }
 
