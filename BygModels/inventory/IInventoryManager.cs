@@ -11,5 +11,7 @@ namespace BygModels.inventory
         public Task<InventoryBaseModel> InsertAsync(InventoryBaseModel model);
 
         public Task<InventoryBaseModel> UpdateAsync(int id, InventoryBaseModel model);
+
+
     }
 }

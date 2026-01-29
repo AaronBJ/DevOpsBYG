@@ -45,5 +45,10 @@ namespace BygDevOpsData.inventoryRepository
             }
             return model;
         }
+
+        public Task<InventoryBaseModel> UpdateAsync(int id, InventoryBaseModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
