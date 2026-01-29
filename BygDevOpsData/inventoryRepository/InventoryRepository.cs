@@ -3,6 +3,7 @@ using BygDevOpsData.Models;
 using BygModels.inventory;
 using BygModels.inventory.model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +17,7 @@ namespace BygDevOpsData.inventoryRepository
         {
             using (var ctx = new AppDbContext())
             {
-               var x = await ctx.inventory.Select(x=> new InventoryBaseModel()
+               var objectToReturn = await ctx.inventory.Select(x=> new InventoryBaseModel()
                {
                    Id = x.id,
                    Description=x.details,
@@ -24,9 +25,24 @@ namespace BygDevOpsData.inventoryRepository
                    Image=x.imageurl
 
                }).ToListAsync();
-                return x;
+                return objectToReturn;
 
             } ;
+        }
+
+        public async Task<InventoryBaseModel> GetAsync(int id)
+        {
+            using (var ctx = new AppDbContext()) {
+                var objectFromDB = await ctx.inventory.FirstAsync(x => x.id == id);
+                var objectToReturn = new InventoryBaseModel();
+                objectToReturn.Id = id;
+                objectToReturn.Quantity = objectFromDB.quantity.Value;
+                objectFromDB.details = objectFromDB.details;
+                objectFromDB.imageurl = objectFromDB.imageurl;
+
+                return objectToReturn;
+            
+            }
         }
 
         public async Task<InventoryBaseModel> InsertAsync(InventoryBaseModel model)
@@ -46,9 +62,19 @@ namespace BygDevOpsData.inventoryRepository
             return model;
         }
 
-        public Task<InventoryBaseModel> UpdateAsync(int id, InventoryBaseModel model)
+        public async Task<InventoryBaseModel> UpdateAsync(int id, InventoryBaseModel model)
         {
-            throw new NotImplementedException();
+            using (var ctx = new AppDbContext())
+            {
+
+               var RecordToUpdate = await ctx.inventory.FirstAsync(x=>x.id == id);
+                RecordToUpdate.details = model.Description;
+                RecordToUpdate.quantity = model.Quantity;
+                RecordToUpdate.imageurl = model.Image;
+                await ctx.SaveChangesAsync();
+
+            }
+            return model;
         }
     }
 }
