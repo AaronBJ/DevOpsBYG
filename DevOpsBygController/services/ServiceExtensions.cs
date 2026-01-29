@@ -1,4 +1,5 @@
 ﻿using BygDevOpsManager.inventory;
+using BygModels.inventory;
 
 namespace DevOpsBygController.services
 {

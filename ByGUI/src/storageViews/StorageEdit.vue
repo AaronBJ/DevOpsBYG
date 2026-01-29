@@ -20,8 +20,8 @@ function goTo(route: string) {
   router.push("/" + route);
 }
 
-/* ViewModel */
-const viewModelId = route.query.id;
+  /* ViewModel */
+  const viewModelId = route.query.id;
 const viewModelDescription = ref<string>("");
 const viewModelQuantity = ref<number>(0);
 const viewModelImage = ref<string>("");
@@ -45,9 +45,9 @@ onMounted(async () => {
 });
 
 /* Actualizar */
-async function updateOnClick() {
+  async function updateOnClick(viewModelId : number) {
   const data: InventoryModel = {
-    id: viewModelId.value,
+    id: viewModelId,
     description: viewModelDescription.value,
     quantity: viewModelQuantity.value,
     image: viewModelImage.value

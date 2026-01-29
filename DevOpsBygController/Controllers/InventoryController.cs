@@ -1,4 +1,5 @@
 ﻿using BygDevOpsManager.inventory;
+using BygModels.inventory;
 using BygModels.inventory.dto;
 using BygModels.inventory.model;
 using BygModels.Inventory.dto;
