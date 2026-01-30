@@ -14,7 +14,9 @@ interface InventoryModel {
 }
 
 
-
+  function goToInventory(route: string) {
+    $router.push('/inventario')
+  }
 
 function goTo(route: string) {
   $router.push("/" + route);
@@ -73,8 +75,12 @@ onMounted(async () => {
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-12 text-center">
+      <div class="col-6 offset-3 o text-center">
         <h1>Editar inventario</h1>
+      </div>
+
+      <div class="col-3">
+        <button class="float-rigth btn btn-danger" @click="goToInventory('inventario')" >regresar</button>
       </div>
     </div>
 
@@ -129,3 +135,10 @@ onMounted(async () => {
     </div>
   </div>
 </template>
+
+<style>
+
+  .float-rigth{
+    float:right;
+  }
+</style>
