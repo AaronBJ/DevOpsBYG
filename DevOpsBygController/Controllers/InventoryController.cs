@@ -21,7 +21,7 @@ namespace DevOpsBygController.Controllers
 
         [HttpGet(Name = "GetAllInventory")]
 
-        public async Task<IActionResult> GetAll() { 
+        public async Task<IActionResult> GetAll() {
             var result = await _inventoryManager.GetAllAsync();
             var dto = new List<InventoryResponseDto>();
             foreach (var item in result)
@@ -39,7 +39,7 @@ namespace DevOpsBygController.Controllers
 
 
 
-        
+
         }
 
         [HttpPost]
@@ -59,8 +59,8 @@ namespace DevOpsBygController.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] InventoryRequestDto requestDto){
-            if(id != requestDto.Id)
+        public async Task<IActionResult> Update(int id, [FromBody] InventoryRequestDto requestDto) {
+            if (id != requestDto.Id)
             {
                 return BadRequest("los id no coinciden");
             }
@@ -69,14 +69,14 @@ namespace DevOpsBygController.Controllers
             model.Description = requestDto.Description;
             model.Quantity = requestDto.Quantity;
             model.Image = requestDto.Image;
-            var result = await _inventoryManager.UpdateAsync(id ,model);
-            var dto = new InventoryResponseDto(); 
+            var result = await _inventoryManager.UpdateAsync(id, model);
+            var dto = new InventoryResponseDto();
             dto.Id = result.Id;
             dto.Description = result.Description;
             dto.Quantity = result.Quantity;
             dto.Image = result.Image;
             return Ok(dto);
-            
+
         }
 
         [HttpGet("{id}")]
@@ -84,21 +84,29 @@ namespace DevOpsBygController.Controllers
         {
             var result = await _inventoryManager.GetAsync(id);
 
-                var dto = new InventoryResponseDto()
-                {
-                    Id = result.Id,
-                    Description = result.Description,
-                    Quantity = result.Quantity,
-                    Image = result.Image
-                };
+            var dto = new InventoryResponseDto()
+            {
+                Id = result.Id,
+                Description = result.Description,
+                Quantity = result.Quantity,
+                Image = result.Image
+            };
             return Ok(dto);
-
-
-
 
         }
 
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _inventoryManager.DeleteAsync(id);
 
+
+            return Ok();
+
+
+
+        }
+    
     }
 }
