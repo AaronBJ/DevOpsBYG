@@ -22,6 +22,11 @@ namespace BygDevOpsManager.inventory
             return y;
         }
 
+        public async Task<InventoryBaseModel> GetAsync(int id)
+        {
+           return await _inventory.GetAsync(id);
+        }
+
         public async Task<InventoryBaseModel> InsertAsync(InventoryBaseModel model)
         {
             var modelToReturn = await _inventory.InsertAsync(model);

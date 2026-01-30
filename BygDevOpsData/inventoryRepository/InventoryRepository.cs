@@ -37,8 +37,8 @@ namespace BygDevOpsData.inventoryRepository
                 var objectToReturn = new InventoryBaseModel();
                 objectToReturn.Id = id;
                 objectToReturn.Quantity = objectFromDB.quantity.Value;
-                objectFromDB.details = objectFromDB.details;
-                objectFromDB.imageurl = objectFromDB.imageurl;
+                objectToReturn.Description = objectFromDB.details;
+                objectToReturn.Image = objectFromDB.imageurl;
 
                 return objectToReturn;
             

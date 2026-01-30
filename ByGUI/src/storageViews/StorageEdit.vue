@@ -3,8 +3,8 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
-const router = useRouter();
-const route = useRoute();
+const $router = useRouter();
+const $route = useRoute();
 
 interface InventoryModel {
   id: number;
@@ -17,24 +17,31 @@ interface InventoryModel {
 
 
 function goTo(route: string) {
-  router.push("/" + route);
+  $router.push("/" + route);
 }
 
   /* ViewModel */
-  const viewModelId = route.query.id;
+  const viewModelId = $route.query.id;
 const viewModelDescription = ref<string>("");
 const viewModelQuantity = ref<number>(0);
-const viewModelImage = ref<string>("");
+  const viewModelImage = ref<string>("");
 
 
 
-/* Cargar datos al entrar 
+
+
+  /* Cargar datos al entrar */
+
 onMounted(async () => {
   try {
-    const id = Number(route.params.id);
+    await $router.isReady();
+    console.log($route);
+    console.log($route.query);
+    console.log($route.query.id);
+    const id = $route.query.id;
     const response = await axios.get(`https://localhost:44329/Inventory/${id}`);
 
-    viewModelId.value = response.data.id;
+
     viewModelDescription.value = response.data.description;
     viewModelQuantity.value = response.data.quantity;
     viewModelImage.value = response.data.image;
@@ -114,7 +121,7 @@ onMounted(async () => {
               <input class="btn btn-warning w-100"
                      type="button"
                      value="Actualizar"
-                     @click="updateOnClick" />
+                     @click="updateOnClick(viewModelId)" />
             </div>
           </div>
         </form>

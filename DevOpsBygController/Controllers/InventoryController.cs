@@ -21,7 +21,7 @@ namespace DevOpsBygController.Controllers
 
         [HttpGet(Name = "GetAllInventory")]
 
-        public async Task<IActionResult> Get() { 
+        public async Task<IActionResult> GetAll() { 
             var result = await _inventoryManager.GetAllAsync();
             var dto = new List<InventoryResponseDto>();
             foreach (var item in result)
@@ -76,6 +76,29 @@ namespace DevOpsBygController.Controllers
             dto.Quantity = result.Quantity;
             dto.Image = result.Image;
             return Ok(dto);
+            
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var result = await _inventoryManager.GetAsync(id);
+
+                var dto = new InventoryResponseDto()
+                {
+                    Id = result.Id,
+                    Description = result.Description,
+                    Quantity = result.Quantity,
+                    Image = result.Image
+                };
+            return Ok(dto);
+
+
+
+
+        }
+
+
+
     }
 }
