@@ -21,7 +21,7 @@ namespace BygDevOpsData.inventoryRepository
                {
                    Id = x.id,
                    Description=x.details,
-                   Quantity=x.quantity.Value,
+                   Quantity=x.quantity,
                    Image=x.imageurl
 
                }).ToListAsync();
@@ -36,7 +36,7 @@ namespace BygDevOpsData.inventoryRepository
                 var objectFromDB = await ctx.inventory.FirstAsync(x => x.id == id);
                 var objectToReturn = new InventoryBaseModel();
                 objectToReturn.Id = id;
-                objectToReturn.Quantity = objectFromDB.quantity.Value;
+                objectToReturn.Quantity = objectFromDB.quantity;
                 objectToReturn.Description = objectFromDB.details;
                 objectToReturn.Image = objectFromDB.imageurl;
 
