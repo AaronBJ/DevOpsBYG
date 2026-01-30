@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BygDevOpsManager.inventory
 {
@@ -45,6 +46,18 @@ namespace BygDevOpsManager.inventory
                 return elementsToReturn;
             }
             else { return null; }
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var elementToUpdate = await _inventory.GetAsync(id);
+            if (elementToUpdate != null)
+            {
+                await _inventory.DeleteAsync(id);
+
+            }
+            
+
         }
 
     }

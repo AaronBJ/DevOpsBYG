@@ -1,9 +1,11 @@
 <script setup lang="ts">
   import axios from "axios";
   import { ref, onMounted } from "vue";
-  import { useRouter } from 'vue-router';
+  import { useRouter, useRoute } from 'vue-router';
+
 
   const router = useRouter();
+  const route = useRoute();
 
   interface InventoryModel {
     id: number;
@@ -34,9 +36,23 @@
     }
   }
 
+  async function deleted(id: number) {
+    try {
+      const response = await axios.delete(`https://localhost:44329/Inventory/${id}`);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      getAll();
+    }
+     
+  }
+
   onMounted(() => {
     getAll();
   });
+
+ 
+
 </script>
 
 <template>
@@ -74,17 +90,20 @@
             <td>{{ item.description }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.image }}</td>
-            <td><button type="button" class="btn btn-primary" title="detalles" ><i class="bi bi-info-circle "></i></button>
-            &nbsp;
-            <button type="button" @click="goToEdit('inventarioEditar', item.id)" class="btn btn-warning" title="editar"> <i class="bi bi-pen "></i>  </button>
-            &nbsp;
-            <button type="button" class="btn btn-danger" title="eliminar"> <i class="bi bi-trash"></i> </button>
+            <td>
+              <button type="button" class="btn btn-primary" title="detalles"><i class="bi bi-info-circle "></i></button>
+              &nbsp;
+              <button type="button" @click="goToEdit('inventarioEditar', item.id)" class="btn btn-warning" title="editar"> <i class="bi bi-pen "></i>  </button>
+              &nbsp;
+              <button type="button" @click="deleted(item.id)" class="btn btn-danger" title="eliminar"> <i class="bi bi-trash"></i> </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+
+ 
 </template>
 
 <style scoped>

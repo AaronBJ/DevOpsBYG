@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BygDevOpsData.inventoryRepository
 {
@@ -17,11 +18,13 @@ namespace BygDevOpsData.inventoryRepository
         {
             using (var ctx = new AppDbContext())
             {
-               var objectToReturn = await ctx.inventory.Select(x=> new InventoryBaseModel()
+               var objectToReturn = await ctx.inventory.Where(x=>!x.is_deleted).Select(x=> new InventoryBaseModel()
                {
+
+
                    Id = x.id,
                    Description=x.details,
-                   Quantity=x.quantity.Value,
+                   Quantity=x.quantity,
                    Image=x.imageurl
 
                }).ToListAsync();
@@ -36,7 +39,7 @@ namespace BygDevOpsData.inventoryRepository
                 var objectFromDB = await ctx.inventory.FirstAsync(x => x.id == id);
                 var objectToReturn = new InventoryBaseModel();
                 objectToReturn.Id = id;
-                objectToReturn.Quantity = objectFromDB.quantity.Value;
+                objectToReturn.Quantity = objectFromDB.quantity;
                 objectToReturn.Description = objectFromDB.details;
                 objectToReturn.Image = objectFromDB.imageurl;
 
@@ -75,6 +78,19 @@ namespace BygDevOpsData.inventoryRepository
 
             }
             return model;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            using (var ctx = new AppDbContext())
+            {
+
+                var RecordToUpdate = await ctx.inventory.FirstAsync(x => x.id == id);
+                RecordToUpdate.is_deleted = true;
+                await ctx.SaveChangesAsync();
+
+            }
+
         }
     }
 }

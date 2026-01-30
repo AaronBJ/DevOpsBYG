@@ -13,6 +13,8 @@ namespace BygModels.inventory
 
         public Task<InventoryBaseModel> UpdateAsync(int id, InventoryBaseModel model);
 
+        public Task DeleteAsync(int id);
+
 
     }
 }
