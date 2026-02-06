@@ -1,13 +1,17 @@
-﻿using DevOpsBygController.Controllers;
+﻿using BygModels.inventory;
+using DevOpsBygController.Controllers;
+using Moq;
 
 namespace DevOpsBygControllerTests
 {
     public class InventoryControllerTest
     {
+        private Mock<IInventoryManager> _MockManager;
         private InventoryController _SUT; 
 
         public InventoryControllerTest() { 
-            _SUT = new InventoryController(null);
+            _MockManager = new Mock<IInventoryManager>();
+            _SUT = new InventoryController(_MockManager.Object);
         }
 
         [Fact]
