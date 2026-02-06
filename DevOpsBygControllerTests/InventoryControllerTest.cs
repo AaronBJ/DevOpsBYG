@@ -4,8 +4,10 @@ namespace DevOpsBygControllerTests
 {
     public class InventoryControllerTest
     {
+        private InventoryController _SUT; 
+
         public InventoryControllerTest() { 
-            InventoryController SUT = new InventoryController(null);
+            _SUT = new InventoryController(null);
         }
 
         [Fact]
@@ -15,7 +17,7 @@ namespace DevOpsBygControllerTests
             
 
             //act
-            var result = SUT.GetAll();
+            var result = _SUT.GetAll();
 
             //assert
             Assert.NotNull(result);
@@ -32,14 +34,12 @@ namespace DevOpsBygControllerTests
 
 
             //act
-            var result = SUT.GetAll;
+            var result = _SUT.GetAll;
 
             //assert
             Assert.NotNull(result);
 
         }
-
-
 
     }
 }
