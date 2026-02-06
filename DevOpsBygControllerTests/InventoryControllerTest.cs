@@ -1,6 +1,8 @@
 ﻿using BygModels.inventory;
+using BygModels.inventory.model;
 using DevOpsBygController.Controllers;
 using Moq;
+using System.Threading.Tasks;
 
 namespace DevOpsBygControllerTests
 {
@@ -29,19 +31,31 @@ namespace DevOpsBygControllerTests
         }
 
         [Theory]
-        [InlineData(1,"brk123",-1,":)",false)]
-        [InlineData(1,"brk234",0,":)",true)]
+        [InlineData(1,"brk123",-1,":)")]
+        [InlineData(1,"brk234",0,":)")]
 
-        public void GivenQuantityIsNotAnExpectedValueThenFail(int id, string description, int quantity, string image,bool expected)
+        public async Task GivenQuantityIsNotAnExpectedValueThenFail(int id, string description, int quantity, string image)
         {
             //arrange
+            var list = new List<InventoryBaseModel>();
+            list.Add(new InventoryBaseModel()
+            {
+                Id = id,
+                Description = description,
+                Quantity = quantity,
+                Image = image
+            });
+            _MockManager.Setup(x => x.GetAllAsync()).ReturnsAsync(list);
 
 
             //act
-            var result = _SUT.GetAll;
+            var result = await _SUT.GetAll();
 
             //assert
+            
             Assert.NotNull(result);
+
+
 
         }
 
