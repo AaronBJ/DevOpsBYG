@@ -1,6 +1,8 @@
 <Solution>
   <Project Path="BygDevOpsData/BygDevOpsData.csproj" Id="b616f0be-9d2a-44e1-9890-921cdaafb6f8" />
+  <Project Path="BygDevOpsDataTest/BygDevOpsDataTest.csproj" Id="6655840f-a208-4c2d-ba49-091ba654f6bd" />
   <Project Path="BygDevOpsManager/BygDevOpsManager.csproj" Id="2fb6ea4d-b14f-4519-b0ac-c502ec5b421d" />
+  <Project Path="BygDevOpsManagerTests/BygDevOpsManagerTests.csproj" Id="e04af7b6-94b2-4e5a-8d67-5cbf3913ab63" />
   <Project Path="BygModels/BygModels.csproj" Id="6553d036-d031-4bc1-bf95-64835761b27e" />
   <Project Path="ByGUI/bygui.esproj">
     <Build />

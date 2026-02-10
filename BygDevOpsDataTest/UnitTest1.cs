@@ -1,4 +1,4 @@
-﻿namespace DevOpsBygControllerTests
+﻿namespace BygDevOpsDataTest
 {
     public class UnitTest1
     {

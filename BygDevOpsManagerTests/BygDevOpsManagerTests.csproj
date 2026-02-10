@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BygDevOpsManager\BygDevOpsManager.csproj" />
     <ProjectReference Include="..\BygModels\BygModels.csproj" />
-    <ProjectReference Include="..\DevOpsBygController\DevOpsBygController.csproj" />
   </ItemGroup>
 
   <ItemGroup>
