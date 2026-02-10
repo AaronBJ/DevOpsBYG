@@ -2,6 +2,7 @@
 using BygModels.inventory;
 using BygModels.inventory.model;
 using Moq;
+using System.Threading.Tasks;
 
 namespace BygDevOpsManagerTests
 {
@@ -17,16 +18,19 @@ namespace BygDevOpsManagerTests
         }
 
         [Fact]
-        public void GetAllAlwaysReturnSucces()
+        public async Task GetAllAlwaysReturnSucces()
         {
             //arrange
-
+            var Lista = GeneratingList();
+            var expectedListSize = 3;
+            _MockRepository.Setup(properties => properties.GetAllAsync()).ReturnsAsync(Lista);
 
             //act
-            var result = _SUT.GetAllAsync();
+            var result = await _SUT.GetAllAsync();
 
             //assert
             Assert.NotNull(result);
+            Assert.Equal(expectedListSize, result.Count());
 
         }
 
@@ -56,6 +60,21 @@ namespace BygDevOpsManagerTests
             Assert.NotNull(result);
 
         }
+
+        #region helpers
+
+        private IEnumerable<InventoryBaseModel> GeneratingList()
+        {
+            List<InventoryBaseModel> Lista = new List<InventoryBaseModel>();
+            Lista.Add(new InventoryBaseModel());
+            Lista.Add(new InventoryBaseModel());
+            Lista.Add(new InventoryBaseModel());
+            return Lista;
+        }
+        
+
+
+        #endregion
 
 
     }
