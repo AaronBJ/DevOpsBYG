@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BygModels.tags.model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,5 +11,6 @@ namespace BygModels.inventory.model
         public string Description { get; set; }
         public int Quantity { get; set; }
         public string Image { get; set; }
+        public List<TagsBaseModel> Tags { get; set; }
     }
 }

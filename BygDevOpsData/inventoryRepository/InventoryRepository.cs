@@ -2,6 +2,7 @@
 using BygDevOpsData.Models;
 using BygModels.inventory;
 using BygModels.inventory.model;
+using BygModels.views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
@@ -14,18 +15,23 @@ namespace BygDevOpsData.inventoryRepository
 {
     public class InventoryRepository : IInventoryRepository
     {
-        public async Task<IEnumerable<InventoryBaseModel>> GetAllAsync()
+        public async Task<IEnumerable<InventoryTagsView>> GetAllAsync()
         {
             using (var ctx = new AppDbContext())
             {
-               var objectToReturn = await ctx.inventory.Where(x=>!x.is_deleted).Select(x=> new InventoryBaseModel()
+               var objectToReturn = await ctx.vista_inventory_tags.Where(x=>!x.inventory_is_deleted).Select(x=> new InventoryTagsView()
                {
+                   InventoryId = x.inventory_id,
+                   InventoryDetails = x.inventory_details,
+                   InventoryImage = x.inventory_image,
+                   InventoryIsDeleted = x.inventory_is_deleted,
+                   InventoryQuantity = x.inventory_quantity,
+                   TagsColor = x.tags_color,
+                   TagsDetails = x.tags_details,
+                   TagsIcons = x.tags_icons,
+                   TagsId = x.tags_id,
+                   TagsIsDeleted = x.tags_is_deleted,
 
-
-                   Id = x.id,
-                   Description=x.details,
-                   Quantity=x.quantity,
-                   Image=x.imageurl
 
                }).ToListAsync();
                 return objectToReturn;

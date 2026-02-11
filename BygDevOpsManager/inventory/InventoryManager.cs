@@ -20,7 +20,18 @@ namespace BygDevOpsManager.inventory
             var lista = new List<InventoryBaseModel>();
 
             var y = await _inventory.GetAllAsync();
-            return y;
+            foreach (var item in y)
+            {
+                lista.Add(new InventoryBaseModel() { 
+                    Id = item.InventoryId,
+                    Description = item.InventoryDetails,
+                    Image = item.InventoryImage,
+                    Quantity = item.InventoryQuantity,
+
+                
+                });
+            }
+            return lista;
         }
 
         public async Task<InventoryBaseModel> GetAsync(int id)

@@ -1,4 +1,5 @@
 ﻿using BygModels.inventory.model;
+using BygModels.views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace BygModels.inventory
 
     public interface IInventoryRepository
     {
-        public Task<IEnumerable<InventoryBaseModel>> GetAllAsync();
+        public Task<IEnumerable<InventoryTagsView>> GetAllAsync();
         public Task<InventoryBaseModel> InsertAsync(InventoryBaseModel model);
 
         public Task<InventoryBaseModel> UpdateAsync( int id , InventoryBaseModel model);

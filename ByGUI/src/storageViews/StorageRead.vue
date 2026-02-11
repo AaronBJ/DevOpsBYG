@@ -12,6 +12,7 @@
     description: string;
     quantity: number;
     image: string;
+    tags: string[];
   }
 
   function goToEdit(route: string, Id:number) {
@@ -79,7 +80,6 @@
             <th>ID</th>
             <th>DESCRIPCION</th>
             <th>CANTIDAD</th>
-            <th>IMAGEN</th>
             <th>OPCIONES</th>
           </tr>
         </thead>
@@ -87,9 +87,12 @@
         <tbody>
           <tr v-for="item in inventoryData" :key="item.id">
             <td>{{ item.id }}</td>
-            <td>{{ item.description }}</td>
+            <td>
+              {{ item.description }}
+              {{item.tags}}
+              {{item.image}}
+            </td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.image }}</td>
             <td>
               <button type="button" class="btn btn-primary" title="detalles"><i class="bi bi-info-circle "></i></button>
               &nbsp;
