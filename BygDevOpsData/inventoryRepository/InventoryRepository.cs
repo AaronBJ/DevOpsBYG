@@ -19,23 +19,30 @@ namespace BygDevOpsData.inventoryRepository
         {
             using (var ctx = new AppDbContext())
             {
-               var objectToReturn = await ctx.vista_inventory_tags.
-                    //Where(x=>!x.inventory_is_deleted).
-                    Select(x=> new InventoryTagsViewBaseModel()
-               {
-                   InventoryId = x.inventory_id,
-                   InventoryDetails = x.inventory_details,
-                   InventoryImage = x.inventory_image,
-                   InventoryIsDeleted = x.inventory_is_deleted,
-                   InventoryQuantity = x.inventory_quantity,
-                   //Tags = new List<InventoryTagsViewTagsBaseModel>()
-                   //{
-                   //    new InventoryTagsViewTagsBaseModel()
-                    
-                   //}
+                var objectToReturn = await ctx.vista_inventory_tags.
+                     //Where(x=>!x.inventory_is_deleted).
+                     Select(x => new InventoryTagsViewBaseModel()
+                     {
+                         InventoryId = x.inventory_id,
+                         InventoryDetails = x.inventory_details,
+                         InventoryImage = x.inventory_image,
+                         InventoryIsDeleted = x.inventory_is_deleted,
+                         InventoryQuantity = x.inventory_quantity,
+                         Tags = new List<InventoryTagsViewTagsBaseModel>()
+                    {
+                      new InventoryTagsViewTagsBaseModel()
+                      {
+                          TagsColor = x.tags_color,
+                          TagsIcons = x.tags_icons,
+                          TagsDetails = x.tags_details,
+                          TagsId = x.tags_id==null?0:x.tags_id.Value,
+                          TagsIsDeleted = x.tags_is_deleted,
+                      }
+
+                    }
 
 
-               }).ToListAsync();
+                     }).ToListAsync();
 
                 return objectToReturn;
 

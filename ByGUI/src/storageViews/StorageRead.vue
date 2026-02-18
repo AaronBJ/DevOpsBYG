@@ -89,7 +89,7 @@
             <td>{{ item.id }}</td>
             <td>
               {{ item.description }}
-              {{item.tags}}
+              <span class="tags">{{item.tags}}</span>
               {{item.image}}
             </td>
             <td>{{ item.quantity }}</td>
@@ -127,5 +127,9 @@
       position: sticky;
       top: 0;
       z-index: 10;
+    }
+    .tags{
+        background-color: antiquewhite;
+        border-radius: 22px;
     }
 </style>

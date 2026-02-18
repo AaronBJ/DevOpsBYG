@@ -8,7 +8,7 @@ namespace BygModels.views
     {
         public int TagsId { get; set; }
 
-        public string TagsDetails { get; set; } = null!;
+        public string TagsDetails { get; set; } 
 
         public string? TagsColor { get; set; }
 

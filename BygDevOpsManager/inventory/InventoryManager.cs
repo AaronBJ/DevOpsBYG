@@ -1,8 +1,11 @@
 ﻿using BygModels.inventory;
 using BygModels.inventory.model;
+using BygModels.tags.model;
+using BygModels.views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -22,11 +25,14 @@ namespace BygDevOpsManager.inventory
             var y = await _inventory.GetAllAsync();
             foreach (var item in y)
             {
+                var ListaDeTags = new List<TagsBaseModel>();
+                ListaDeTags.Add(Convert(item.Tags.FirstOrDefault()));
                 lista.Add(new InventoryBaseModel() { 
                     Id = item.InventoryId,
                     Description = item.InventoryDetails,
                     Image = item.InventoryImage,
                     Quantity = item.InventoryQuantity,
+                    Tags = ListaDeTags,
 
                 
                 });
@@ -70,6 +76,20 @@ namespace BygDevOpsManager.inventory
             
 
         }
+
+        #region
+        public TagsBaseModel Convert(InventoryTagsViewTagsBaseModel ObjectToConvert)
+        {
+            return new TagsBaseModel()
+            {
+                Color = ObjectToConvert.TagsColor,
+                Id = ObjectToConvert.TagsId,
+                Details = ObjectToConvert.TagsDetails,
+
+            };
+        }
+
+        #endregion
 
     }
 }
