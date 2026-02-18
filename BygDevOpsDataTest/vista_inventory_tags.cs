@@ -15,9 +15,9 @@ public partial class vista_inventory_tags
 
     public bool inventory_is_deleted { get; set; }
 
-    public int? tags_id { get; set; }
+    public int tags_id { get; set; }
 
-    public string? tags_details { get; set; }
+    public string tags_details { get; set; } = null!;
 
     public string? tags_color { get; set; }
 

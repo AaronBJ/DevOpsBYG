@@ -11,5 +11,5 @@ t3.iconos AS tags_icons,
 t3.is_deleted AS tags_is_deleted
   
  FROM inventory AS t1
-INNER JOIN inventory_tags AS t2 ON t1.id = t2.inventario_id
-INNER JOIN tags AS t3 ON t2.tags_id =  t3.id;
+LEFT JOIN inventory_tags AS t2 ON t1.id = t2.inventario_id
+LEFT JOIN tags AS t3 ON t2.tags_id =  t3.id;

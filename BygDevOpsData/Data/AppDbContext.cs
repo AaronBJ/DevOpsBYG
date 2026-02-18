@@ -85,6 +85,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.tags_color).HasMaxLength(6);
             entity.Property(e => e.tags_details).HasMaxLength(30);
             entity.Property(e => e.tags_icons).HasMaxLength(20);
+            entity.Property(e => e.tags_id).HasDefaultValueSql("'0'");
             entity.Property(e => e.tags_is_deleted).HasDefaultValueSql("'0'");
         });
 

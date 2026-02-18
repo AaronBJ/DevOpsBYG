@@ -4,18 +4,8 @@ using System.Text;
 
 namespace BygModels.views
 {
-    public class InventoryTagsView
+    public class InventoryTagsViewTagsBaseModel
     {
-        public int InventoryId { get; set; }
-
-        public string InventoryDetails { get; set; } = null!;
-
-        public int InventoryQuantity { get; set; }
-
-        public string InventoryImage { get; set; } = null!;
-
-        public bool InventoryIsDeleted { get; set; }
-
         public int TagsId { get; set; }
 
         public string TagsDetails { get; set; } = null!;
