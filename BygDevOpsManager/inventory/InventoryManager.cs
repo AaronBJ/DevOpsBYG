@@ -18,6 +18,11 @@ namespace BygDevOpsManager.inventory
             _inventory = inventory;
             
         }
+
+        /// <summary>
+        /// esta funcion trae todos los elementos de la base de datos
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<InventoryBaseModel>> GetAllAsync()
         {
             var lista = new List<InventoryBaseModel>();
@@ -25,17 +30,32 @@ namespace BygDevOpsManager.inventory
             var y = await _inventory.GetAllAsync();
             foreach (var item in y)
             {
-                var ListaDeTags = new List<TagsBaseModel>();
-                ListaDeTags.Add(Convert(item.Tags.FirstOrDefault()));
-                lista.Add(new InventoryBaseModel() { 
-                    Id = item.InventoryId,
-                    Description = item.InventoryDetails,
-                    Image = item.InventoryImage,
-                    Quantity = item.InventoryQuantity,
-                    Tags = ListaDeTags,
+
+                var tmp = lista.Find(x => x.Id == item.InventoryId);
+
+                if (tmp == null) {
+                    var ListaDeTags = new List<TagsBaseModel>();
+                    ListaDeTags.Add(Convert(item.Tags.FirstOrDefault()));
+                    lista.Add(new InventoryBaseModel()
+                    {
+                        Id = item.InventoryId,
+                        Description = item.InventoryDetails,
+                        Image = item.InventoryImage,
+                        Quantity = item.InventoryQuantity,
+                        Tags = ListaDeTags,
+
+
+                    });
+
+                }
+                else
+                {
+                    tmp.Tags.Add(Convert(item.Tags.FirstOrDefault()));
+                }
+                
 
                 
-                });
+ 
             }
             return lista;
         }
