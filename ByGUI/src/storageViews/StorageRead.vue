@@ -89,7 +89,14 @@
             <td>{{ item.id }}</td>
             <td>
               {{ item.description }}
-              <span class="tags">{{item.tags}}</span>
+              <span v-for="tags in item.tags" class="tags">{{tags.details}}
+              {{tags.icon}}
+
+
+
+
+
+              </span>
               {{item.image}}
             </td>
             <td>{{ item.quantity }}</td>
