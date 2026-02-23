@@ -7,6 +7,16 @@
   const router = useRouter();
   const route = useRoute();
 
+  function getTagStyle(tag: any) {
+    return {
+      backgroundColor: `#${tag.color}`,
+      color: 'white',
+      padding: '4px 8px',
+      borderRadius: '8px',
+      marginRight: '5px'
+    }
+  }
+
   interface InventoryModel {
     id: number;
     description: string;
@@ -89,8 +99,13 @@
             <td>{{ item.id }}</td>
             <td>
               {{ item.description }}
-              <span v-for="tags in item.tags" class="tags">{{tags.details}}
-              {{tags.icon}}
+              <span v-for="tag in item.tags"
+                    :key="tag.id"
+                    class="tags"
+                    :style="getTagStyle(tag)">
+
+                <i :class="['bi', `bi-${tag.icon}`]"></i>
+                {{tag.details}}
 
 
 
@@ -135,8 +150,5 @@
       top: 0;
       z-index: 10;
     }
-    .tags{
-        background-color: antiquewhite;
-        border-radius: 22px;
-    }
+
 </style>

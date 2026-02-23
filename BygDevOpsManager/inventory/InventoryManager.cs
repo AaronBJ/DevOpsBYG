@@ -105,6 +105,7 @@ namespace BygDevOpsManager.inventory
                 Color = ObjectToConvert.TagsColor,
                 Id = ObjectToConvert.TagsId,
                 Details = ObjectToConvert.TagsDetails,
+                Icon = ObjectToConvert.TagsIcons
 
             };
         }

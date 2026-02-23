@@ -33,6 +33,7 @@ namespace DevOpsBygController.Controllers
                     Quantity = item.Quantity,
                     Image = item.Image,
                     Tags = item.Tags
+
                 };
                 dto.Add(x);
             }
