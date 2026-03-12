@@ -64,6 +64,8 @@ namespace DevOpsBygController.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] InventoryRequestDto requestDto) {
             if (id != requestDto.Id)
             {
+
+
                 return BadRequest("los id no coinciden");
             }
             var model = new InventoryBaseModel();

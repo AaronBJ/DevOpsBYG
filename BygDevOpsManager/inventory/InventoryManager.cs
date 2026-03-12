@@ -1,4 +1,5 @@
-﻿using BygModels.inventory;
+﻿using BygDevOpsData.Models;
+using BygModels.inventory;
 using BygModels.inventory.model;
 using BygModels.tags.model;
 using BygModels.views;
@@ -78,6 +79,9 @@ namespace BygDevOpsManager.inventory
             var elementToUpdate = await _inventory.GetAsync(id);
             if (elementToUpdate != null)
             {
+
+                var arregloTags = model.Tags.Select(x=>x.Details);
+
                 var elementsToReturn = await _inventory.UpdateAsync(id, model);
 
                 return elementsToReturn;

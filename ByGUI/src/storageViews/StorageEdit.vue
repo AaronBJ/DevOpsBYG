@@ -87,6 +87,8 @@ onMounted(async () => {
       tags: viewModelTags.value
     };
 
+    console.log("aqui esta el view model tags")
+    console.log(viewModelTags)
     try {
       await axios.put(
         `https://localhost:44329/Inventory/${data.id}`,
