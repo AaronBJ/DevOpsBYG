@@ -2,14 +2,9 @@
 using BygDevOpsData.Models;
 using BygModels.inventory;
 using BygModels.inventory.model;
+using BygModels.tags.model;
 using BygModels.views;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BygDevOpsData.inventoryRepository
 {
@@ -46,21 +41,36 @@ namespace BygDevOpsData.inventoryRepository
 
                 return objectToReturn;
 
-            } ;
+            }
+            ;
         }
 
         public async Task<InventoryBaseModel> GetAsync(int id)
         {
-            using (var ctx = new AppDbContext()) {
-                var objectFromDB = await ctx.inventory.FirstAsync(x => x.id == id);
-                var objectToReturn = new InventoryBaseModel();
-                objectToReturn.Id = id;
-                objectToReturn.Quantity = objectFromDB.quantity;
-                objectToReturn.Description = objectFromDB.details;
-                objectToReturn.Image = objectFromDB.imageurl;
+            using (var ctx = new AppDbContext())
+            {
+                var objectToReturn = await ctx.inventory
+                .Where(x => x.id == id)
+                .Select(x => new InventoryBaseModel
+                {
+                    Id = x.id,
+                    Quantity = x.quantity,
+                    Description = x.details,
+                    Image = x.imageurl,
+                    Tags = x.inventory_tags
+                        .Select(it => new TagsBaseModel
+                        {
+                            Color = it.tags.color,
+                            Icon = it.tags.iconos,
+                            Details = it.tags.details,
+
+                        })
+                        .ToList()
+                })
+                .FirstAsync();
 
                 return objectToReturn;
-            
+
             }
         }
 
@@ -75,7 +85,7 @@ namespace BygDevOpsData.inventoryRepository
 
                 ctx.inventory.Add(newRecord);
                 await ctx.SaveChangesAsync();
-               model.Id = newRecord.id;
+                model.Id = newRecord.id;
 
             }
             return model;
@@ -86,7 +96,7 @@ namespace BygDevOpsData.inventoryRepository
             using (var ctx = new AppDbContext())
             {
 
-               var RecordToUpdate = await ctx.inventory.FirstAsync(x=>x.id == id);
+                var RecordToUpdate = await ctx.inventory.FirstAsync(x => x.id == id);
                 RecordToUpdate.details = model.Description;
                 RecordToUpdate.quantity = model.Quantity;
                 RecordToUpdate.imageurl = model.Image;

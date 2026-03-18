@@ -1,8 +1,10 @@
 
 using BygDevOpsData.Data;
 using BygDevOpsData.inventoryRepository;
+using BygDevOpsData.tagsRepository;
 using BygDevOpsManager.inventory;
 using BygModels.inventory;
+using BygModels.tags;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddTransient<IInventoryManager, InventoryManager>();//inyeccion de dependencia del inventory manager
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
+builder.Services.AddTransient<ITagsRepository, TagsRepository>();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(

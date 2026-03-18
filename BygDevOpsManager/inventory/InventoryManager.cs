@@ -1,6 +1,8 @@
 ﻿using BygDevOpsData.Models;
+using BygDevOpsData.tagsRepository;
 using BygModels.inventory;
 using BygModels.inventory.model;
+using BygModels.tags;
 using BygModels.tags.model;
 using BygModels.views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -15,8 +17,11 @@ namespace BygDevOpsManager.inventory
     public class InventoryManager : IInventoryManager
     {
         private IInventoryRepository _inventory;
-        public InventoryManager(IInventoryRepository inventory) { 
+        private ITagsRepository _tagsRepository;
+        public InventoryManager(IInventoryRepository inventory, ITagsRepository tags) { 
             _inventory = inventory;
+            _tagsRepository = tags;
+            
             
         }
 
@@ -73,14 +78,29 @@ namespace BygDevOpsManager.inventory
             return modelToReturn;
         }
 
-
+        /// <summary>
+        /// primero va y busca si existe ese elemento a actualizar
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<InventoryBaseModel> UpdateAsync(int id, InventoryBaseModel model)
         {
+            
             var elementToUpdate = await _inventory.GetAsync(id);
             if (elementToUpdate != null)
             {
 
-                var arregloTags = model.Tags.Select(x=>x.Details);
+                var arregloTags = model.Tags;
+                foreach(var tag in arregloTags)
+                {
+                    if( !await _tagsRepository.IsExistsAsync(tag.Details))
+                    {
+                       await _tagsRepository.InsertTagsAsync(tag.Icon, tag.Details, tag.Color);
+                    }
+                
+                }
 
                 var elementsToReturn = await _inventory.UpdateAsync(id, model);
 
@@ -88,6 +108,7 @@ namespace BygDevOpsManager.inventory
             }
             else { return null; }
         }
+
 
         public async Task DeleteAsync(int id)
         {

@@ -93,7 +93,9 @@ namespace DevOpsBygController.Controllers
                 Id = result.Id,
                 Description = result.Description,
                 Quantity = result.Quantity,
-                Image = result.Image
+                Image = result.Image,
+                Tags = result.Tags
+                
             };
             return Ok(dto);
 

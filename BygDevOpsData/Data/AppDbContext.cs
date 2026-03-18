@@ -60,7 +60,21 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.tags).WithMany()
                 .HasForeignKey(d => d.tags_id)
                 .HasConstraintName("inventory_tags_ibfk_2");
+
+
         });
+
+        modelBuilder.Entity<inventory_tags>().HasKey(it => new { it.inventario_id, it.tags_id });
+
+        modelBuilder.Entity<inventory_tags>()
+            .HasOne(it => it.inventario)
+            .WithMany(i => i.inventory_tags)
+            .HasForeignKey(it => it.inventario_id);
+
+        modelBuilder.Entity<inventory_tags>()
+            .HasOne(it => it.tags)
+            .WithMany()
+            .HasForeignKey(it => it.tags_id);
 
         modelBuilder.Entity<tags>(entity =>
         {
