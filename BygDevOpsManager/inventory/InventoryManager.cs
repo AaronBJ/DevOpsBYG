@@ -95,9 +95,11 @@ namespace BygDevOpsManager.inventory
                 var arregloTags = model.Tags;
                 foreach(var tag in arregloTags)
                 {
-                    if( !await _tagsRepository.IsExistsAsync(tag.Details))
+
+                    var TagsExists = await _tagsRepository.IsExistsAsync(tag.Details);
+                    if ( !TagsExists)
                     {
-                       await _tagsRepository.InsertTagsAsync(tag.Icon, tag.Details, tag.Color);
+                        await _tagsRepository.InsertTagsAsync(tag.Details, tag.Icon, tag.Color);
                     }
                 
                 }

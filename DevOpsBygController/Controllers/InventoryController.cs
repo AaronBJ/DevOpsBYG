@@ -73,12 +73,14 @@ namespace DevOpsBygController.Controllers
             model.Description = requestDto.Description;
             model.Quantity = requestDto.Quantity;
             model.Image = requestDto.Image;
+            model.Tags = requestDto.Tags;
             var result = await _inventoryManager.UpdateAsync(id, model);
             var dto = new InventoryResponseDto();
             dto.Id = result.Id;
             dto.Description = result.Description;
             dto.Quantity = result.Quantity;
             dto.Image = result.Image;
+            dto.Tags = result.Tags;
             return Ok(dto);
 
         }
