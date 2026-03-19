@@ -2,6 +2,7 @@
 using BygDevOpsData.tagsRepository;
 using BygModels.inventory;
 using BygModels.inventory.model;
+using BygModels.inventoryTags;
 using BygModels.tags;
 using BygModels.tags.model;
 using BygModels.views;
@@ -18,9 +19,12 @@ namespace BygDevOpsManager.inventory
     {
         private IInventoryRepository _inventory;
         private ITagsRepository _tagsRepository;
-        public InventoryManager(IInventoryRepository inventory, ITagsRepository tags) { 
+        private IInventoryTagsRepository _inventoryTagsRepository;
+        public InventoryManager(IInventoryRepository inventory, ITagsRepository tags, 
+            IInventoryTagsRepository inventoryTagsRepository) { 
             _inventory = inventory;
             _tagsRepository = tags;
+            _inventoryTagsRepository = inventoryTagsRepository;
             
             
         }
@@ -93,16 +97,28 @@ namespace BygDevOpsManager.inventory
             {
 
                 var arregloTags = model.Tags;
-                foreach(var tag in arregloTags)
+
+                await _inventoryTagsRepository.DeleteAllAsync(id);
+
+                foreach (var tag in arregloTags)
                 {
 
-                    var TagsExists = await _tagsRepository.IsExistsAsync(tag.Details);
-                    if ( !TagsExists)
+                    var tagId = await _tagsRepository.IsExistsAsync(tag.Details);
+                    if (tagId == 0)
                     {
-                        await _tagsRepository.InsertTagsAsync(tag.Details, tag.Icon, tag.Color);
+
+                        var tmpId = await _tagsRepository.InsertTagsAsync(tag.Details, tag.Icon, tag.Color);
+                        await _inventoryTagsRepository.InsertAsync(id, tmpId);
+
                     }
-                
+                    else
+                    {
+                        await _inventoryTagsRepository.InsertAsync(id,tagId);
+                    }
+
+
                 }
+
 
                 var elementsToReturn = await _inventory.UpdateAsync(id, model);
 

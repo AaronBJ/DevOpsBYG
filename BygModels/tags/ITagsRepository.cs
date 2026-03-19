@@ -11,7 +11,7 @@ namespace BygModels.tags
         /// </summary>
         /// <param name="detail"></param>
         /// <returns></returns>
-        public Task<bool> IsExistsAsync(string detail);
+        public Task<int> IsExistsAsync(string detail);
 
         /// <summary>
         /// va a insertar una nueva tag

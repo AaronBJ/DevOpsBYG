@@ -84,7 +84,8 @@ onMounted(async () => {
       description: viewModelDescription.value,
       quantity: viewModelQuantity.value,
       image: viewModelImage.value,
-      tags: viewModelTags.value
+      tags: viewModelTags.value,
+
     };
 
     console.log("aqui esta el view model tags")

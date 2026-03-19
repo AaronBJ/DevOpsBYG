@@ -60,6 +60,7 @@ namespace BygDevOpsData.inventoryRepository
                     Tags = x.inventory_tags
                         .Select(it => new TagsBaseModel
                         {
+                            Id = it.tags.id,
                             Color = it.tags.color,
                             Icon = it.tags.iconos,
                             Details = it.tags.details,
@@ -101,6 +102,7 @@ namespace BygDevOpsData.inventoryRepository
                 RecordToUpdate.quantity = model.Quantity;
                 RecordToUpdate.imageurl = model.Image;
                 await ctx.SaveChangesAsync();
+
 
             }
             return model;

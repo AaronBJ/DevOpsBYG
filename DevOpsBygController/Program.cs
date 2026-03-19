@@ -1,9 +1,12 @@
 
 using BygDevOpsData.Data;
 using BygDevOpsData.inventoryRepository;
+using BygDevOpsData.InventoryTagsManager;
+using BygDevOpsData.Models;
 using BygDevOpsData.tagsRepository;
 using BygDevOpsManager.inventory;
 using BygModels.inventory;
+using BygModels.inventoryTags;
 using BygModels.tags;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -16,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddTransient<IInventoryManager, InventoryManager>();//inyeccion de dependencia del inventory manager
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
 builder.Services.AddTransient<ITagsRepository, TagsRepository>();
+builder.Services.AddTransient<IInventoryTagsRepository, InventoryTagsRepository>();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(

@@ -10,20 +10,25 @@ namespace BygDevOpsData.tagsRepository
 {
     public class TagsRepository: ITagsRepository
     {
-        public async Task<bool> IsExistsAsync(string detail)
+        public async Task<int> IsExistsAsync(string detail)
         {
             if(string.IsNullOrEmpty(detail))
             {
 
-                return false;
+                return 0;
             }
             using (var ctx = new AppDbContext())
             {
                 var objectfromDB = await ctx.tags.AnyAsync(x => x.details == detail);
+                if (objectfromDB)
+                {
+                    var IdToReturn = await ctx.tags.FirstAsync(x => x.details == detail);
 
+                    return IdToReturn.id;
+                }
                 
                 
-                return objectfromDB;
+                return 0;
 
             }
 
