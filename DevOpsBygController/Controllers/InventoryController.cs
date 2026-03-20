@@ -31,7 +31,9 @@ namespace DevOpsBygController.Controllers
                     Id = item.Id,
                     Description = item.Description,
                     Quantity = item.Quantity,
-                    Image = item.Image
+                    Image = item.Image,
+                    Tags = item.Tags
+
                 };
                 dto.Add(x);
             }
@@ -62,6 +64,8 @@ namespace DevOpsBygController.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] InventoryRequestDto requestDto) {
             if (id != requestDto.Id)
             {
+
+
                 return BadRequest("los id no coinciden");
             }
             var model = new InventoryBaseModel();
@@ -69,12 +73,14 @@ namespace DevOpsBygController.Controllers
             model.Description = requestDto.Description;
             model.Quantity = requestDto.Quantity;
             model.Image = requestDto.Image;
+            model.Tags = requestDto.Tags;
             var result = await _inventoryManager.UpdateAsync(id, model);
             var dto = new InventoryResponseDto();
             dto.Id = result.Id;
             dto.Description = result.Description;
             dto.Quantity = result.Quantity;
             dto.Image = result.Image;
+            dto.Tags = result.Tags;
             return Ok(dto);
 
         }
@@ -89,7 +95,9 @@ namespace DevOpsBygController.Controllers
                 Id = result.Id,
                 Description = result.Description,
                 Quantity = result.Quantity,
-                Image = result.Image
+                Image = result.Image,
+                Tags = result.Tags
+                
             };
             return Ok(dto);
 

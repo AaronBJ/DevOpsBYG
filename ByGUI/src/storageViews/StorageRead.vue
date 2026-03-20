@@ -7,11 +7,22 @@
   const router = useRouter();
   const route = useRoute();
 
+  function getTagStyle(tag: any) {
+    return {
+      backgroundColor: `#${tag.color}`,
+      color: 'white',
+      padding: '4px 8px',
+      borderRadius: '8px',
+      marginRight: '5px'
+    }
+  }
+
   interface InventoryModel {
     id: number;
     description: string;
     quantity: number;
     image: string;
+    tags: string[];
   }
 
   function goToEdit(route: string, Id:number) {
@@ -79,17 +90,41 @@
             <th>ID</th>
             <th>DESCRIPCION</th>
             <th>CANTIDAD</th>
-            <th>IMAGEN</th>
             <th>OPCIONES</th>
           </tr>
         </thead>
 
         <tbody>
           <tr v-for="item in inventoryData" :key="item.id">
-            <td>{{ item.id }}</td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.image }}</td>
+            <td class="cell-highlight">{{ item.id }}</td>
+
+            <td>
+              <div class="description-box">
+                <div class="description-content">
+                  <div class="description-title">
+                    {{ item.description }}
+                  </div>
+
+                  <div class="description-tags">
+                    <span v-for="tag in item.tags"
+                          :key="tag.id"
+                          class="tags"
+                          :style="getTagStyle(tag)">
+                      <i :class="['bi', `bi-${tag.icon}`]"></i>
+                      {{ tag.details }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="description-image">
+                  <img v-if="item.image"
+                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Leonardo_da_Vinci_-_Mona_Lisa_%28Louvre%2C_Paris%29.jpg/500px-Leonardo_da_Vinci_-_Mona_Lisa_%28Louvre%2C_Paris%29.jpg"
+                       alt="imagen" />
+                </div>
+              </div>
+            </td>
+
+            <td class="cell-highlight">{{ item.quantity }}</td>
             <td>
               <button type="button" class="btn btn-primary" title="detalles"><i class="bi bi-info-circle "></i></button>
               &nbsp;
@@ -125,4 +160,58 @@
       top: 0;
       z-index: 10;
     }
+  .description-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 12px 16px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.2s ease-in-out;
+  }
+
+    .description-box:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    }
+
+  .description-content {
+    width: 70%;
+  }
+
+  .description-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .description-tags {
+    margin-bottom: 6px;
+  }
+
+  .description-image {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+    .description-image img {
+      max-width: 100%;
+      max-height: 80px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+  .cell-highlight {
+    font-weight: 700;
+    font-size: 15px;
+    vertical-align: middle !important;
+  }
+
+  tbody td {
+    vertical-align: middle;
+  }
+
 </style>

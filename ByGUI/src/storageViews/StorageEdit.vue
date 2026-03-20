@@ -6,12 +6,22 @@ import { useRouter, useRoute } from "vue-router";
 const $router = useRouter();
 const $route = useRoute();
 
-interface InventoryModel {
-  id: number;
-  description: string;
-  quantity: number;
-  image: string;
-}
+  interface TagModel {
+    id: number;
+    details: string;
+    color: string;
+    icon: string;
+  }
+
+  interface InventoryModel {
+    id: number;
+    description: string;
+    quantity: number;
+    image: string;
+    tags: TagModel[];
+  }
+
+  const viewModelTags = ref<TagModel[]>([]);
 
 
   function goToInventory(route: string) {
@@ -28,6 +38,19 @@ const viewModelDescription = ref<string>("");
 const viewModelQuantity = ref<number>(0);
   const viewModelImage = ref<string>("");
 
+  function addTag() {
+    viewModelTags.value.push({
+      id: 0,
+      details: "",
+      color: "",
+      icon: ""
+    });
+  }
+
+  function removeTag(index: number) {
+    viewModelTags.value.splice(index, 1);
+  }
+
 
 
 
@@ -42,6 +65,7 @@ onMounted(async () => {
     console.log($route.query.id);
     const id = $route.query.id;
     const response = await axios.get(`https://localhost:44329/Inventory/${id}`);
+    viewModelTags.value = response.data.tags ?? [];
 
 
     viewModelDescription.value = response.data.description;
@@ -54,22 +78,29 @@ onMounted(async () => {
 });
 
 /* Actualizar */
-  async function updateOnClick(viewModelId : number) {
-  const data: InventoryModel = {
-    id: viewModelId,
-    description: viewModelDescription.value,
-    quantity: viewModelQuantity.value,
-    image: viewModelImage.value
-  };
+  async function updateOnClick(viewModelId: number) {
+    const data: InventoryModel = {
+      id: viewModelId,
+      description: viewModelDescription.value,
+      quantity: viewModelQuantity.value,
+      image: viewModelImage.value,
+      tags: viewModelTags.value,
 
-  try {
-    await axios.put(`https://localhost:44329/Inventory/${data.id}`, data);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    goTo("inventario");
+    };
+
+    console.log("aqui esta el view model tags")
+    console.log(viewModelTags)
+    try {
+      await axios.put(
+        `https://localhost:44329/Inventory/${data.id}`,
+        data
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      goTo("inventario");
+    }
   }
-}
 </script>
 
 <template>
@@ -121,7 +152,55 @@ onMounted(async () => {
           </div>
 
           <br />
+          <hr />
 
+          <div class="row">
+            <div class="col-12">
+              <h5>Tags</h5>
+            </div>
+          </div>
+
+          <div v-for="(tag, index) in viewModelTags" :key="index" class="row mb-2">
+
+            <div class="col-3">
+              <input class="form-control"
+                     placeholder="Detalle"
+                     v-model="tag.details" />
+            </div>
+
+            <div class="col-3">
+              <input class="form-control"
+                     placeholder="Color (ej: FF0000)"
+                     v-model="tag.color" />
+            </div>
+
+            <div class="col-3">
+              <input class="form-control"
+                     placeholder="Icon (ej: gear)"
+                     v-model="tag.icon" />
+            </div>
+
+            <div class="col-3 d-flex align-items-end">
+              <button type="button"
+                      class="btn btn-danger w-100"
+                      @click="removeTag(index)">
+                Eliminar
+              </button>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <button type="button"
+                      class="btn btn-primary w-100"
+                      @click="addTag">
+                + Agregar Tag
+              </button>
+            </div>
+          </div>
+          <br />
+          <hr />
           <div class="row">
             <div class="col-12">
               <input class="btn btn-warning w-100"
