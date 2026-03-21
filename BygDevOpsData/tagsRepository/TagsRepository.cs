@@ -1,6 +1,7 @@
 ﻿using BygDevOpsData.Data;
 using BygDevOpsData.Models;
 using BygModels.tags;
+using BygModels.tags.model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,23 @@ namespace BygDevOpsData.tagsRepository
 
             }
 
+        }
+
+        public async Task<IEnumerable<TagsBaseModel>> GetAllAsync()
+        {
+            using (var ctx = new AppDbContext())
+            {
+                return await ctx.tags.Select(x => new TagsBaseModel
+                {
+                    Id = x.id,
+                    Icon = x.iconos,
+                    Details = x.details,
+                    Color = x.color,
+
+
+                }).ToListAsync();
+            }
+        
         }
     }
 }

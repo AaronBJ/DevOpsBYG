@@ -5,6 +5,7 @@ using BygDevOpsData.InventoryTagsManager;
 using BygDevOpsData.Models;
 using BygDevOpsData.tagsRepository;
 using BygDevOpsManager.inventory;
+using BygDevOpsManager.tags;
 using BygModels.inventory;
 using BygModels.inventoryTags;
 using BygModels.tags;
@@ -20,6 +21,7 @@ builder.Services.AddTransient<IInventoryManager, InventoryManager>();//inyeccion
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
 builder.Services.AddTransient<ITagsRepository, TagsRepository>();
 builder.Services.AddTransient<IInventoryTagsRepository, InventoryTagsRepository>();
+builder.Services.AddTransient<ITagsManager, TagsManager>();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
