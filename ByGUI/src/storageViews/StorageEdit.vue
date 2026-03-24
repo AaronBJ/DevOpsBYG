@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref, onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
+  import { useRouter, useRoute } from "vue-router";
+  import type {TagModel } from "@/interFaces/tagsModel"
 
 const $router = useRouter();
 const $route = useRoute();
 
-  interface TagModel {
-    id: number;
-    details: string;
-    color: string;
-    icon: string;
-  }
+
 
   interface InventoryModel {
     id: number;

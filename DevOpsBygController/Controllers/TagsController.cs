@@ -19,7 +19,7 @@ namespace DevOpsBygController.Controllers
         {
             var result = await _tagsManager.GetTagsAsync();
 
-            return Ok(result);
+            return Ok(result); 
 
         }
 
