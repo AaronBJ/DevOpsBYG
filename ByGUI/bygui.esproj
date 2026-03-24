@@ -13,6 +13,6 @@
     <Folder Include="src\components\sharedComponents\" />
     <Folder Include="src\homeViews\" />
     <Folder Include="src\interFaces\" />
-    <Folder Include="src\setUp\" />
+    <Folder Include="src\setup\" />
   </ItemGroup>
 </Project>

@@ -2,12 +2,14 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
   import { useRouter, useRoute } from "vue-router";
-  import type {TagModel } from "@/interFaces/tagsModel"
+  import type { TagModel } from "@/interFaces/tagsModel"
+  import { useTagsStore } from '@/setup/tagsService'
 
+  const tagsStore = useTagsStore();
 const $router = useRouter();
 const $route = useRoute();
 
-
+console.log(tagsStore)
 
   interface InventoryModel {
     id: number;
@@ -100,6 +102,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  {{tagsStore}}
   <div class="container">
     <div class="row">
       <div class="col-6 offset-3 o text-center">
