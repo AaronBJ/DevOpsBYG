@@ -14,10 +14,13 @@ namespace BygDevOpsManager.tags
             _tagsRepository = tagsRepository;
         }
 
-        public async Task<IEnumerable<TagsBaseModel>> GetTagsAsync()
+        public async Task<IEnumerable<string>> GetTagsAsync()
         {
 
-           return await _tagsRepository.GetAllAsync();
+            var x = await _tagsRepository.GetAllAsync();
+
+           return x.Select(x => x.Details).ToList();
+            
             
         
         }

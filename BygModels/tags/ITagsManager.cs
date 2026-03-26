@@ -7,7 +7,7 @@ namespace BygModels.tags
 {
     public interface ITagsManager
     {
-        public Task<IEnumerable<TagsBaseModel>> GetTagsAsync();
+        public Task<IEnumerable<string>> GetTagsAsync();
 
     }
 }

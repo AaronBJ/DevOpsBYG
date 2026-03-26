@@ -3,4 +3,5 @@ export interface TagModel {
   details: string;
   color: string;
   icon: string;
+  selectedOption: string;
 }

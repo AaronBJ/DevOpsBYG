@@ -7,7 +7,12 @@ import { ref, onMounted } from "vue";
 
   const tagsStore = useTagsStore();
 const $router = useRouter();
-const $route = useRoute();
+  const $route = useRoute();
+
+  import { watch } from 'vue';
+
+
+
 
 console.log(tagsStore)
 
@@ -20,6 +25,7 @@ console.log(tagsStore)
   }
 
   const viewModelTags = ref<TagModel[]>([]);
+
 
 
   function goToInventory(route: string) {
@@ -41,7 +47,8 @@ const viewModelQuantity = ref<number>(0);
       id: 0,
       details: "",
       color: "",
-      icon: ""
+      icon: "",
+      selectedOption: ""
     });
   }
 
@@ -99,10 +106,27 @@ onMounted(async () => {
       goTo("inventario");
     }
   }
+
+
+  watch(viewModelTags, (newTags) => {
+
+    newTags.forEach(tag => {
+      if (tag.selectedOption !== 'otro') {
+        // Si NO es "otro", el valor viene del select
+        tag.details = tag.selectedOption;
+      } else {
+        // Si es "otro", permites escribir (no haces nada)
+        if (tag.details === tag.selectedOption) {
+          tag.details = ''; // opcional: limpiar cuando cambia a "otro"
+        }
+      }
+    });
+  }, { deep: true });
+
+
 </script>
 
 <template>
-  {{tagsStore}}
   <div class="container">
     <div class="row">
       <div class="col-6 offset-3 o text-center">
@@ -160,23 +184,31 @@ onMounted(async () => {
           </div>
 
           <div v-for="(tag, index) in viewModelTags" :key="index" class="row mb-2">
-
+            <div class="col-3">
+              <select v-model="tag.selectedOption" class="form-select" id="tagOptoions" name="tags">
+                <option v-for="tagItem in tagsStore.tags" :value="tagItem">{{tagItem}}</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
             <div class="col-3">
               <input class="form-control"
                      placeholder="Detalle"
-                     v-model="tag.details" />
+                     v-model="tag.details"
+                     :disabled="tag.selectedOption !== 'otro'"/>
             </div>
 
             <div class="col-3">
               <input class="form-control"
                      placeholder="Color (ej: FF0000)"
-                     v-model="tag.color" />
+                     v-model="tag.color"
+                     :disabled="tag.selectedOption !== 'otro'"/>
             </div>
 
             <div class="col-3">
               <input class="form-control"
                      placeholder="Icon (ej: gear)"
-                     v-model="tag.icon" />
+                     v-model="tag.icon"
+                     :disabled="tag.selectedOption !== 'otro'"/>
             </div>
 
             <div class="col-3 d-flex align-items-end">
