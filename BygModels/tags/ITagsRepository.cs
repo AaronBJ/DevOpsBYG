@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BygModels.tags.model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -21,5 +22,6 @@ namespace BygModels.tags
         /// <param name="color"></param>
         /// <returns></returns>
         public Task<int> InsertTagsAsync(string detail, string icon, string color);
+        Task<IEnumerable<TagsBaseModel>> GetAllAsync();
     }
 }
