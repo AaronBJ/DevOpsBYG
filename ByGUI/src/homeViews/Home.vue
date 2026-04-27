@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <h1>Bienvenido</h1>
+  <div class="home byg-font-bold">
+    <h1 class="byg-font-bold">Bienvenido</h1>
     <p>Esta es la página de inicio</p>
 
 
