@@ -1,3 +1,13 @@
+/*Este hexadecimal es el "azul" del banner: #204375
+  Este hexadecimal es el "blanco" para el fondo: #E8EEF7
+  Esre hexadecimal es el "gris" para las fuentes: #212121
+*/
+
+body{
+    color: #212121;
+    background-color: #E8EEF7;
+
+}
 
 .byg-font-light{
     font-family:"poppins" !important;
