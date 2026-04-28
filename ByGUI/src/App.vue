@@ -6,7 +6,9 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <sharedHeader />
-  <router-view />
+  <div class="container">
+       <router-view />
+  </div>
 </template>
 
 <style scoped>
