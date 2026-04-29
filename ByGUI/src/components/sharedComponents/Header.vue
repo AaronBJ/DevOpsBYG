@@ -2,11 +2,14 @@
   <div>
     <!-- Header -->
     <div class="container-fluid custom-header">
-      <h2 @click="toggleMenu" class="menu-icon">
+      <div class="menu-icon">
         <a href="/">
           <img src="../../../public/images/logo.svg" height="30" />
         </a>
-      </h2>
+        <a href="/inventario">
+          <i class="bi bi-journal-text header-icons" ></i>
+        </a>
+      </div> 
     </div>
 
   </div>
@@ -24,14 +27,23 @@
     padding: 10px;
   }
 
-  .custom-header h2 img {
+  .custom-header div img {
       margin-left: 10px;
   }
 
   .menu-icon {
+    display: flex;
+    align-items: center; /* 🔥 esto los alinea perfectamente */
+    gap: 20px; /* reemplaza margin-left */
     color: white;
     cursor: pointer;
-    width: fit-content;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .header-icons {
+    color: #162F52;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+    font-size: 33px;
   }
 
 
