@@ -2,19 +2,25 @@
 import HelloWorld from './components/HelloWorld.vue'
   import TheWelcome from './components/TheWelcome.vue'
   import sharedHeader from "./components/sharedComponents/Header.vue"
+  import bottomMenu from "./components/sharedComponents/BottomMenu.vue"
 </script>
 
 <template>
   <sharedHeader />
   <div class="container">
-       <router-view />
+    <router-view />
   </div>
+  <bottomMenu/>
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
 }
+
+  .container {
+    padding-bottom: 80px; /* altura del bottom menu */
+  }
 
 .logo {
   display: block;
