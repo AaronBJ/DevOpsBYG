@@ -2,11 +2,16 @@
   <div class="header-blue-line"></div>
 
   <div class="header-search">
-    <img :class="{ fade: fading }"
-         :src="hover ? '/images/logoDeBusquedaVariante.svg' : '/images/logoSearch.svg'"
-         height="50"
-         @mouseenter="handleEnter"
-         @mouseleave="handleLeave" />
+    <transition name="fade" mode="out-in">
+      <img :key="hover"
+           :src="hover
+          ? '/images/logoDeBusquedaVariante.svg'
+          : '/images/logoSearch.svg'"
+           height="50"
+           @mouseenter="hover = true"
+           @mouseleave="hover = false"
+           @click="emit('toggleSearch')" />
+    </transition>
   </div>
 </template>
 
@@ -15,6 +20,8 @@
 
   const hover = ref(false)
   const fading = ref(false)
+
+  const emit = defineEmits(['toggleSearch'])
 
   const handleEnter = () => {
     fading.value = true
@@ -48,12 +55,18 @@
     height: 5px;
     background-color: #204375;
   }
-  img {
-    transition: opacity 0.3s ease;
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.25s ease;
   }
 
-  .fade {
+  .fade-enter-from,
+  .fade-leave-to {
     opacity: 0;
+  }
+
+  img {
+    cursor: pointer;
   }
 
 </style>

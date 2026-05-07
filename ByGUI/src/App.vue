@@ -1,16 +1,29 @@
 <script setup lang="ts">
+  import { ref } from 'vue'
+
 import HelloWorld from './components/HelloWorld.vue'
   import TheWelcome from './components/TheWelcome.vue'
   import sharedHeader from "./components/sharedComponents/Header.vue"
   import bottomMenu from "./components/sharedComponents/BottomMenu.vue"
+  import SearchIa from "./components/sharedComponents/SearchIa.vue"
+
+  const showSearch = ref(false)
+
 </script>
 
 <template>
-  <sharedHeader />
+  <sharedHeader @toggleSearch="showSearch = !showSearch" />
+
   <div class="container">
     <router-view />
   </div>
-  <bottomMenu/>
+
+  <bottomMenu />
+
+  <SearchIa :visible="showSearch"
+            @close="showSearch = false" />
+
+
 </template>
 
 <style scoped>
