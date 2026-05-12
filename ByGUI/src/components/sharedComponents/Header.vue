@@ -1,114 +1,72 @@
 <template>
-  <div>
-    <!-- Header -->
-    <div class="container-fluid custom-header">
-      <h2 @click="toggleMenu" class="menu-icon">
-        <i class="bi bi-list"></i>
-      </h2>
-    </div>
+  <div class="header-blue-line"></div>
 
-    <!-- Overlay oscuro -->
-    <div v-if="menuOpen"
-         class="overlay"
-         @click="toggleMenu"></div>
-
-    <!-- Menú lateral -->
-    <div :class="['side-menu', { open: menuOpen }]">
-      <h4 class="menu-title">Menú</h4>
-      <ul>
-        <li @click="goTo('')"><i class="bi bi-house"></i> Inicio</li>
-        <li @click="goTo('inventario')"><i class="bi bi-archive"></i> Inventario</li>
-        <!--<li @click="goTo('configuracion')">⚙️ Configuración</li>
-        <li @click="goTo('logout')">🚪 Cerrar sesión</li>-->
-      </ul>
-    </div>
+  <div class="header-search">
+    <transition name="fade" mode="out-in">
+      <img :key="hover"
+           :src="hover
+          ? '/images/logoDeBusquedaVariante.svg'
+          : '/images/logoSearch.svg'"
+           height="50"
+           @mouseenter="hover = true"
+           @mouseleave="hover = false"
+           @click="emit('toggleSearch')" />
+    </transition>
   </div>
 </template>
 
-<script>
-  export default {
-    name: "Home",
-    data() {
-      return {
-        menuOpen: false
-      };
-    },
-    methods: {
-      toggleMenu() {
-        this.menuOpen = !this.menuOpen;
-      },
-      goTo(route) {
-        this.menuOpen = false;
-        console.log("Ir a:", route);
-         this.$router.push('/' + route)
-      }
-    }
-  };
+<script setup lang="ts">
+  import { ref } from 'vue'
+
+  const hover = ref(false)
+  const fading = ref(false)
+
+  const emit = defineEmits(['toggleSearch'])
+
+  const handleEnter = () => {
+    fading.value = true
+    setTimeout(() => {
+      hover.value = true
+      fading.value = false
+    }, 150)
+  }
+
+  const handleLeave = () => {
+    fading.value = true
+    setTimeout(() => {
+      hover.value = false
+      fading.value = false
+    }, 150)
+  }
 </script>
 
 <style scoped>
-  .custom-header {
-    background-color: darkslategrey;
-    padding: 10px;
+  .header-search {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
   }
 
-  .menu-icon {
-    color: white;
+
+
+  .header-blue-line {
+    height: 5px;
+    background-color: #204375;
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.25s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  img {
     cursor: pointer;
-    width: fit-content;
   }
 
-  /* overlay oscuro */
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 998;
-  }
-
-  /* menú lateral */
-  .side-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 260px;
-    background: #2f4f4f;
-    color: white;
-    padding: 20px;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 999;
-  }
-
-    /* cuando se abre */
-    .side-menu.open {
-      transform: translateX(0);
-    }
-
-  .menu-title {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ffffff33;
-    padding-bottom: 10px;
-  }
-
-  .side-menu ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .side-menu li {
-    padding: 12px 0;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-    .side-menu li:hover {
-      background: rgba(255, 255, 255, 0.15);
-      padding-left: 10px;
-      transition: 0.2s;
-    }
 </style>

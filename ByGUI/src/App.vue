@@ -1,18 +1,39 @@
 <script setup lang="ts">
+  import { ref } from 'vue'
+
 import HelloWorld from './components/HelloWorld.vue'
   import TheWelcome from './components/TheWelcome.vue'
   import sharedHeader from "./components/sharedComponents/Header.vue"
+  import bottomMenu from "./components/sharedComponents/BottomMenu.vue"
+  import SearchIa from "./components/sharedComponents/SearchIa.vue"
+
+  const showSearch = ref(false)
+
 </script>
 
 <template>
-  <sharedHeader />
-  <router-view />
+  <sharedHeader @toggleSearch="showSearch = !showSearch" />
+
+  <div class="container">
+    <router-view />
+  </div>
+
+  <bottomMenu />
+
+  <SearchIa :visible="showSearch"
+            @close="showSearch = false" />
+
+
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
 }
+
+  .container {
+    padding-bottom: 80px; /* altura del bottom menu */
+  }
 
 .logo {
   display: block;

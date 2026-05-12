@@ -1,3 +1,13 @@
+/*Este hexadecimal es el "azul" del banner: #204375
+  Este hexadecimal es el "blanco" para el fondo: #E8EEF7
+  Esre hexadecimal es el "gris" para las fuentes: #212121
+*/
+
+body{
+    color: #212121;
+    background-color: #E8EEF7;
+
+}
 
 .byg-font-light{
     font-family:"poppins" !important;
@@ -15,4 +25,24 @@
     font-family:"poppins" !important;
     font-weight:700;
     font-style:normal;
+}
+
+/*adaptacion para los margenes dependiendo del dispositivo: */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 32px;
+  }
 }
