@@ -15,21 +15,21 @@
         <div class="results">
 
           <div v-for="item in filteredData"
-               :key="item['texto-title']"
+               :key="item['title']"
                class="result-item"
-               @click="goTo(item['url-link'])">
+               @click="goTo(item['link'])">
             <img :src="item.imagen"
                  class="result-img" />
 
             <div class="result-info">
 
               <span class="title">
-                {{ item["texto-title"] }}
+                {{ item["title"] }}
               </span>
 
               <span class="category"
                     :style="{ backgroundColor: item['category-color'] }">
-                {{ item["category-title"] }}
+                {{ item["category"] }}
               </span>
 
             </div>
@@ -45,6 +45,7 @@
 
 <script setup lang="ts">
   import { ref, computed } from 'vue'
+  import axios from "axios";
 
   const props = defineProps<{
     visible: boolean
@@ -54,222 +55,31 @@
 
   const query = ref('')
 
-  const data = ref([
-    {
-      "imagen": "/images/inventario.png",
-      "texto-title": "Inventario General",
-      "url-link": "/inventario",
-      "category-title": "Almacén",
-      "category-color": "#2F5FA8"
-    },
-    {
-      "imagen": "/images/ventas.png",
-      "texto-title": "Panel de Ventas",
-      "url-link": "/ventas",
-      "category-title": "Comercial",
-      "category-color": "#4CAF9A"
-    },
-    {
-      "imagen": "/images/clientes.png",
-      "texto-title": "Gestión de Clientes",
-      "url-link": "/clientes",
-      "category-title": "CRM",
-      "category-color": "#8B7CF6"
-    },
-    {
-      "imagen": "/images/compras.png",
-      "texto-title": "Órdenes de Compra",
-      "url-link": "/compras",
-      "category-title": "Compras",
-      "category-color": "#F59E0B"
-    },
-    {
-      "imagen": "/images/proveedores.png",
-      "texto-title": "Proveedores",
-      "url-link": "/proveedores",
-      "category-title": "Compras",
-      "category-color": "#F97316"
-    },
-    {
-      "imagen": "/images/reportes.png",
-      "texto-title": "Reportes Financieros",
-      "url-link": "/reportes",
-      "category-title": "Finanzas",
-      "category-color": "#10B981"
-    },
-    {
-      "imagen": "/images/dashboard.png",
-      "texto-title": "Dashboard Ejecutivo",
-      "url-link": "/dashboard",
-      "category-title": "Analytics",
-      "category-color": "#0EA5E9"
-    },
-    {
-      "imagen": "/images/usuarios.png",
-      "texto-title": "Usuarios del Sistema",
-      "url-link": "/usuarios",
-      "category-title": "Administración",
-      "category-color": "#6366F1"
-    },
-    {
-      "imagen": "/images/configuracion.png",
-      "texto-title": "Configuración",
-      "url-link": "/configuracion",
-      "category-title": "Sistema",
-      "category-color": "#64748B"
-    },
-    {
-      "imagen": "/images/notificaciones.png",
-      "texto-title": "Centro de Notificaciones",
-      "url-link": "/notificaciones",
-      "category-title": "Comunicación",
-      "category-color": "#EC4899"
-    },
-    {
-      "imagen": "/images/calendario.png",
-      "texto-title": "Calendario de Eventos",
-      "url-link": "/calendario",
-      "category-title": "Organización",
-      "category-color": "#14B8A6"
-    },
-    {
-      "imagen": "/images/facturas.png",
-      "texto-title": "Facturación Electrónica",
-      "url-link": "/facturas",
-      "category-title": "Finanzas",
-      "category-color": "#22C55E"
-    },
-    {
-      "imagen": "/images/empleados.png",
-      "texto-title": "Recursos Humanos",
-      "url-link": "/empleados",
-      "category-title": "RH",
-      "category-color": "#A855F7"
-    },
-    {
-      "imagen": "/images/seguridad.png",
-      "texto-title": "Seguridad del Sistema",
-      "url-link": "/seguridad",
-      "category-title": "Seguridad",
-      "category-color": "#EF4444"
-    },
-    {
-      "imagen": "/images/marketing.png",
-      "texto-title": "Campañas de Marketing",
-      "url-link": "/marketing",
-      "category-title": "Marketing",
-      "category-color": "#F43F5E"
-    },
-    {
-      "imagen": "/images/estadisticas.png",
-      "texto-title": "Estadísticas Avanzadas",
-      "url-link": "/estadisticas",
-      "category-title": "Analytics",
-      "category-color": "#06B6D4"
-    },
-    {
-      "imagen": "/images/envios.png",
-      "texto-title": "Seguimiento de Envíos",
-      "url-link": "/envios",
-      "category-title": "Logística",
-      "category-color": "#0F766E"
-    },
-    {
-      "imagen": "/images/soporte.png",
-      "texto-title": "Mesa de Soporte",
-      "url-link": "/soporte",
-      "category-title": "Atención",
-      "category-color": "#2563EB"
-    },
-    {
-      "imagen": "/images/documentos.png",
-      "texto-title": "Documentación",
-      "url-link": "/documentos",
-      "category-title": "Archivos",
-      "category-color": "#7C3AED"
-    },
-    {
-      "imagen": "/images/tareas.png",
-      "texto-title": "Gestión de Tareas",
-      "url-link": "/tareas",
-      "category-title": "Productividad",
-      "category-color": "#84CC16"
-    },
-    {
-      "imagen": "/images/chat.png",
-      "texto-title": "Chat Corporativo",
-      "url-link": "/chat",
-      "category-title": "Comunicación",
-      "category-color": "#3B82F6"
-    },
-    {
-      "imagen": "/images/pagos.png",
-      "texto-title": "Control de Pagos",
-      "url-link": "/pagos",
-      "category-title": "Finanzas",
-      "category-color": "#16A34A"
-    },
-    {
-      "imagen": "/images/analitica.png",
-      "texto-title": "Analítica Web",
-      "url-link": "/analitica",
-      "category-title": "Marketing",
-      "category-color": "#0891B2"
-    },
-    {
-      "imagen": "/images/agenda.png",
-      "texto-title": "Agenda Empresarial",
-      "url-link": "/agenda",
-      "category-title": "Organización",
-      "category-color": "#9333EA"
-    },
-    {
-      "imagen": "/images/contratos.png",
-      "texto-title": "Contratos Digitales",
-      "url-link": "/contratos",
-      "category-title": "Legal",
-      "category-color": "#475569"
-    },
-    {
-      "imagen": "/images/productos.png",
-      "texto-title": "Catálogo de Productos",
-      "url-link": "/productos",
-      "category-title": "Comercial",
-      "category-color": "#EA580C"
-    },
-    {
-      "imagen": "/images/sucursales.png",
-      "texto-title": "Sucursales",
-      "url-link": "/sucursales",
-      "category-title": "Operaciones",
-      "category-color": "#0284C7"
-    },
-    {
-      "imagen": "/images/ia.png",
-      "texto-title": "Asistente IA",
-      "url-link": "/ia",
-      "category-title": "Innovación",
-      "category-color": "#7C3AED"
-    },
-    {
-      "imagen": "/images/auditoria.png",
-      "texto-title": "Auditoría Interna",
-      "url-link": "/auditoria",
-      "category-title": "Control",
-      "category-color": "#DC2626"
-    },
-    {
-      "imagen": "/images/backup.png",
-      "texto-title": "Respaldo y Recuperación",
-      "url-link": "/backup",
-      "category-title": "Sistema",
-      "category-color": "#334155"
+  interface SearchIaModel {
+    image: string;
+    categoryColor: string;
+    title: string;
+    category: number;
+    link: string;
+
+  }
+
+  var data : SearchIaModel[];
+
+  async function getAll() {
+    try {
+      const response = await axios.get("https://localhost:44329/Ia");
+      data = response.data; // <- aquí
+    } catch (error) {
+      console.log(error);
     }
-  ])
+  }
+
+  getAll();
 
   const filteredData = computed(() => {
-    return data.value.filter(item =>
-      item["texto-title"]
+    return data.filter(item =>
+      item["title"]
         .toLowerCase()
         .includes(query.value.toLowerCase())
     )
