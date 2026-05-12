@@ -15,7 +15,13 @@ namespace DevOpsBygController.Controllers
             _searchIaManager = searchIaManager;
         }
 
+        [HttpGet(Name = "GetAllResults")]
 
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _searchIaManager.GetSearchAsync();
+            return Ok(result);
+        }
         
     }
 }

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BygDevOpsData.Models
+namespace BygModels.enums
 {
-    public class searchIA
+    public enum CategoryAreasEnum
     {
+       Inventory = 1,
+
     }
 }
