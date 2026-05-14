@@ -118,7 +118,7 @@
 
                 <div class="description-image">
                   <img v-if="item.image"
-                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Leonardo_da_Vinci_-_Mona_Lisa_%28Louvre%2C_Paris%29.jpg/500px-Leonardo_da_Vinci_-_Mona_Lisa_%28Louvre%2C_Paris%29.jpg"
+                       :src="`/mediafiles/${item.image}`"
                        alt="imagen" />
                 </div>
               </div>
