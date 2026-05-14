@@ -17,6 +17,15 @@
     }
   }
 
+  function getTagStyleDot(tag: any) {
+    return {
+      color: `#${tag.color}`,
+      padding: '4px 1px',
+      borderRadius: '8px',
+      fontSize: '10px'
+    }
+  }
+
   interface InventoryModel {
     id: number;
     description: string;
@@ -88,6 +97,7 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>IMAGEN</th>
             <th>DESCRIPCION</th>
             <th>CANTIDAD</th>
             <th>OPCIONES</th>
@@ -97,32 +107,39 @@
         <tbody>
           <tr v-for="item in inventoryData" :key="item.id">
             <td class="cell-highlight">{{ item.id }}</td>
+            <td>
+
+              <div class="description-image">
+                <img v-if="item.image"
+                     :src="`/mediafiles/${item.image}`"
+                     alt="imagen"
+                     height="40" />
+
+              </div>
+
+            </td>
 
             <td>
+
+
               <div class="description-box">
                 <div class="description-content">
                   <div class="description-title">
                     {{ item.description }}
-                  </div>
-
-                  <div class="description-tags">
-                    <span v-for="tag in item.tags"
+                  
+                    <i v-for="tag in item.tags" class="bi bi-circle-fill" :style="getTagStyleDot(tag)" ></i>
+                   
+                    <!--<span v-for="tag in item.tags" "Ejemplo de la idea final de los tags"
                           :key="tag.id"
                           class="tags"
                           :style="getTagStyle(tag)">
                       <i :class="['bi', `bi-${tag.icon}`]"></i>
                       {{ tag.details }}
-                    </span>
+                    </span>-->
                   </div>
                 </div>
 
-                <div class="description-image">
-                  <img v-if="item.image"
-                       :src="`/mediafiles/${item.image}`"
-                       alt="imagen"
-                       height="40"/>
 
-                </div>
               </div>
             </td>
 
@@ -168,7 +185,8 @@
     align-items: center;
     border: 1px solid #dee2e6;
     border-radius: 12px;
-    padding: 12px 16px;
+    padding: 0px 16px;
+    padding-top: 4px;
     background-color: #f8f9fa;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     transition: all 0.2s ease-in-out;
