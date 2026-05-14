@@ -119,7 +119,9 @@
                 <div class="description-image">
                   <img v-if="item.image"
                        :src="`/mediafiles/${item.image}`"
-                       alt="imagen" />
+                       alt="imagen"
+                       height="40"/>
+
                 </div>
               </div>
             </td>
