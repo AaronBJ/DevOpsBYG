@@ -18,7 +18,7 @@
                :key="item['title']"
                class="result-item"
                @click="goTo(item['link'])">
-            <img :src="item.imagen"
+            <img :src="`/mediafiles/${item.image}`"
                  class="result-img" />
 
             <div class="result-info">
