@@ -45,17 +45,24 @@ namespace BygDevOpsManager.inventory
 
                 if (tmp == null) {
                     var ListaDeTags = new List<TagsBaseModel>();
-                    ListaDeTags.Add(Convert(item.Tags.FirstOrDefault()));
-                    lista.Add(new InventoryBaseModel()
+                    var tagConvertido = Convert(item.Tags.FirstOrDefault());
+                    if (tagConvertido != null)
                     {
-                        Id = item.InventoryId,
-                        Description = item.InventoryDetails,
-                        Image = item.InventoryImage,
-                        Quantity = item.InventoryQuantity,
-                        Tags = ListaDeTags,
 
 
-                    });
+                        ListaDeTags.Add(Convert(item.Tags.FirstOrDefault()));
+                    }
+                        lista.Add(new InventoryBaseModel()
+                        {
+                            Id = item.InventoryId,
+                            Description = item.InventoryDetails,
+                            Image = item.InventoryImage,
+                            Quantity = item.InventoryQuantity,
+                            Tags = ListaDeTags,
+
+
+                        });
+                    
 
                 }
                 else
@@ -143,6 +150,11 @@ namespace BygDevOpsManager.inventory
         #region
         public TagsBaseModel Convert(InventoryTagsViewTagsBaseModel ObjectToConvert)
         {
+            if( ObjectToConvert.TagsId == 0 && ObjectToConvert.TagsDetails == null)
+            {
+                return null;
+            }
+
             return new TagsBaseModel()
             {
                 Color = ObjectToConvert.TagsColor,

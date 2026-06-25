@@ -128,14 +128,7 @@
                     {{ item.description }}
                   
                     <i v-for="tag in item.tags" class="bi bi-circle-fill" :style="getTagStyleDot(tag)" ></i>
-                   
-                    <!--<span v-for="tag in item.tags" "Ejemplo de la idea final de los tags"
-                          :key="tag.id"
-                          class="tags"
-                          :style="getTagStyle(tag)">
-                      <i :class="['bi', `bi-${tag.icon}`]"></i>
-                      {{ tag.details }}
-                    </span>-->
+                  
                   </div>
                 </div>
 
@@ -145,11 +138,13 @@
 
             <td class="cell-highlight">{{ item.quantity }}</td>
             <td>
-              <button type="button" class="btn btn-primary" title="detalles"><i class="bi bi-info-circle "></i></button>
+              <button type="button" @click="goToEdit('inventarioEditar', item.id)" class="btn btn-primary btn-inventory bi bi-chevron-bar-expand" title="detalles">
+              <!--<i class="bi bi-pen "></i>-->
+              </button>
               &nbsp;
-              <button type="button" @click="goToEdit('inventarioEditar', item.id)" class="btn btn-warning" title="editar"> <i class="bi bi-pen "></i>  </button>
-              &nbsp;
-              <button type="button" @click="deleted(item.id)" class="btn btn-danger" title="eliminar"> <i class="bi bi-trash"></i> </button>
+              <button type="button" @click="deleted(item.id)" class="btn btn-danger bi bi-slash-circle padding-boton-rojo" title="eliminar" >
+              <!--<i class="bi bi-trash"></i>-->
+              </button>
             </td>
           </tr>
         </tbody>
@@ -234,4 +229,14 @@
     vertical-align: middle;
   }
 
+  .btn-inventory{
+      padding-top: 0px;
+      padding-bottom: 0px;
+  }
+
+  .padding-boton-rojo{
+      padding-top: 0px;
+      padding-bottom: 0px;
+  }
+  
 </style>
