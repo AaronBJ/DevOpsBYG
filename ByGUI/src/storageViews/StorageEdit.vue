@@ -117,6 +117,14 @@ onMounted(async () => {
     isLocked.value = !isLocked.value;
   }
 
+  function getTagStyleDot(tag: any) {
+    return {
+      backgroundColor: `#${tag.color}`,
+      padding: '4px 15px',
+      borderRadius: '8px',
+    }
+  }
+
 </script>
 
 <template>
@@ -133,7 +141,10 @@ onMounted(async () => {
 
     <div class="row">
       <div class="col-6">
-
+        <img v-if="viewModelImage"
+             :src="`/mediafiles/${viewModelImage}`"
+             alt="imagen"
+             height="300" />
       </div>
 
       <div class="col-6">
@@ -193,17 +204,27 @@ onMounted(async () => {
             </div>
           </div>
 
-          {{viewModelTags}}
 
           <div v-for="(tag, index) in viewModelTags" :key="index" class="row mb-2">
-            <div class="col-4">
-              <select v-model="tag.selectedOption" class="form-select" id="tagOptoions" name="tags">
+            <!--<div class="col-4">-->
+              <!--<select v-model="tag.selectedOption" class="form-select" id="tagOptoions" name="tags">
                 <option v-for="tagItem in tagsStore.tags" :value="tagItem">{{tagItem}}</option>
                 <option value="otro">Otro</option>
-              </select>
-            </div>
+              </select>-->
+            <!--</div>-->
             <div class="col-4">
-              <input class="form-control"
+
+              <div :style="getTagStyleDot(tag)">
+
+                {{tag.details}}
+                <i  :class="`bi bi-${tag.icon}`" ></i>
+
+
+
+
+              </div>
+              
+              <!--<input class="form-control"
                      placeholder="Detalle"
                      v-model="tag.details"
                      :disabled="tag.selectedOption !== 'otro'" />
@@ -216,7 +237,7 @@ onMounted(async () => {
               <input class="form-control"
                      placeholder="Icon (ej: gear)"
                      v-model="tag.icon"
-                     :disabled="tag.selectedOption !== 'otro'" />
+                     :disabled="tag.selectedOption !== 'otro'" />-->
             </div>
 
             <div class="col-4 d-flex align-items-end">
