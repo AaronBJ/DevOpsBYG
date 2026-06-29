@@ -107,10 +107,6 @@ onMounted(async () => {
     }
   }
 
-
-  
-
-
   const isLocked = ref(true);
 
   function toggleLock() {
@@ -124,6 +120,7 @@ onMounted(async () => {
       borderRadius: '8px',
     }
   }
+
 
 </script>
 
@@ -254,7 +251,7 @@ onMounted(async () => {
             <div class="col-12">
               <button type="button"
                       class="btn btn-primary w-100"
-                      @click="addTag">
+                      @click="goTo('inventarioEditarTagsView')">
                 + Agregar Tag
               </button>
             </div>
