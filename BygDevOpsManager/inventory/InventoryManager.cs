@@ -4,6 +4,7 @@ using BygModels.inventory;
 using BygModels.inventory.model;
 using BygModels.inventoryTags;
 using BygModels.tags;
+using BygModels.tags.dto;
 using BygModels.tags.model;
 using BygModels.views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -163,6 +164,11 @@ namespace BygDevOpsManager.inventory
                 Icon = ObjectToConvert.TagsIcons
 
             };
+        }
+
+        public Task<IEnumerable<TagsDto>> GetTagsAsync(int id)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

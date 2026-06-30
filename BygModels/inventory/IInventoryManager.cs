@@ -1,4 +1,5 @@
 ﻿using BygModels.inventory.model;
+using BygModels.tags.dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,8 @@ namespace BygModels.inventory
         public Task<InventoryBaseModel> UpdateAsync(int id, InventoryBaseModel model);
 
         public Task DeleteAsync(int id);
+
+        public Task<IEnumerable<TagsDto>> GetTagsAsync(int id);
 
 
     }

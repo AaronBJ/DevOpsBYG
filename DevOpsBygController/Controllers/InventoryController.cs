@@ -115,6 +115,19 @@ namespace DevOpsBygController.Controllers
 
 
         }
-    
+
+        [HttpGet("GetTags{id}")]
+
+        public async Task<IActionResult> GetTags(int id)
+        {
+            var result = await _inventoryManager.GetTagsAsync(id);
+           
+            return Ok(result);
+
+
+
+
+        }
+
     }
 }
