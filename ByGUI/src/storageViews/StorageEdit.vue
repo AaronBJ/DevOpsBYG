@@ -26,7 +26,11 @@ console.log(tagsStore)
 
   const viewModelTags = ref<TagModel[]>([]);
 
+  const viewModelId = $route.query.id;
 
+  function goToTags() {
+    $router.push('/inventarioEditarTagsView?inventarioId='+viewModelId)
+  }
 
   function goToInventory(route: string) {
     $router.push('/inventario')
@@ -37,7 +41,6 @@ function goTo(route: string) {
 }
 
   /* ViewModel */
-  const viewModelId = $route.query.id;
 const viewModelDescription = ref<string>("");
 const viewModelQuantity = ref<number>(0);
   const viewModelImage = ref<string>("");
@@ -251,7 +254,7 @@ onMounted(async () => {
             <div class="col-12">
               <button type="button"
                       class="btn btn-primary w-100"
-                      @click="goTo('inventarioEditarTagsView')">
+                      @click="goToTags()">
                 + Agregar Tag
               </button>
             </div>
