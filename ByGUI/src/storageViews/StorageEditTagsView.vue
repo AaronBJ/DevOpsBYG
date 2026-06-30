@@ -1,35 +1,41 @@
-<!--<script setup lang="ts">
+<script setup lang="ts">
   import { ref } from "vue";
   import type { TagModel } from "@/interFaces/tagsModel"
+  import { useTagsStore } from '@/setup/tagsService'
 
 
-const newTag = ref({
+  const tagsStore = useTagsStore();
+
+
+  const newTag = ref({
     details: "",
     color: "",
     icon: ""
-});
+  });
 
-function updateTags(){
 
-}
-</script>-->
+  function updateTags() { }
+
+
+</script>
 
 <template>
-  <div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="container page-container">
 
     <div class="card shadow p-4 tag-box">
 
       <h3 class="text-center mb-4">
-        Administrar Tags
+        Administrar Tags de: BRK789
       </h3>
 
-      <!--<div v-for="(tag,index) in tagsStore.tags"
+
+      <div v-for="(tag,index) in tagsStore.tags"
            :key="index"
            class="tag-row">
 
         <input class="form-check-input"
                type="checkbox"
-               v-model="tag.enabled">
+               <!--v-model="tag.enabled"-->Tag
 
         <div class="preview-tag"
              :style="{ backgroundColor: '#' + tag.color }">
@@ -37,7 +43,7 @@ function updateTags(){
           <i :class="`bi bi-${tag.icon}`"></i>
         </div>
 
-      </div>-->
+      </div>
 
       <hr>
 
@@ -50,8 +56,8 @@ function updateTags(){
           Detalle
         </label>
 
-        <!--<input class="form-control"
-               v-model="newTag.details">-->
+        <input class="form-control"
+               <!--v-model="newTag.details"-->
       </div>
 
       <div class="mb-3">
@@ -59,9 +65,9 @@ function updateTags(){
           Color (Hexadecimal)
         </label>
 
-        <!--<input class="form-control"
+        <input class="form-control"
                placeholder="FFFFFF"
-               v-model="newTag.color">-->
+               <!--v-model="newTag.color"-->
       </div>
 
       <div class="mb-4">
@@ -69,9 +75,9 @@ function updateTags(){
           Icono
         </label>
 
-        <!--<input class="form-control"
+        <input class="form-control"
                placeholder="gear"
-               v-model="newTag.icon">-->
+               <!--v-model="newTag.icon"-->
       </div>
 
       <button class="btn btn-warning w-100"
@@ -86,6 +92,7 @@ function updateTags(){
 
 
 <style scoped>
+
 
   .tag-box {
     width: 500px;
@@ -120,4 +127,11 @@ function updateTags(){
     .preview-tag i {
       font-size: 1rem;
     }
+
+  .page-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px; /* Barra (200px) + separación */
+    padding-bottom: 40px;
+  }
 </style>
