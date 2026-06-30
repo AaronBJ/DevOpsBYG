@@ -1,4 +1,5 @@
 ﻿using BygModels.tags;
+using BygModels.tags.dto;
 using BygModels.tags.model;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,20 @@ namespace BygDevOpsManager.tags
             _tagsRepository = tagsRepository;
         }
 
-        public async Task<IEnumerable<string>> GetTagsAsync()
+        public async Task<IEnumerable<TagsDto>> GetTagsAsync()
         {
 
             var x = await _tagsRepository.GetAllAsync();
 
-           return x.Select(x => x.Details).ToList();
+           return x.Select(x => new TagsDto()
+           {
+               Color = x.Color,
+               Details = x.Details,
+               Icon = x.Icon,
+               Id = x.Id,
+               IsDeleted = x.IsDeleted
+
+           }).ToList();
             
             
         

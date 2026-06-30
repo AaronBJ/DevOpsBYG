@@ -28,20 +28,20 @@
         Administrar Tags de: BRK789
       </h3>
 
-
       <div v-for="(tag,index) in tagsStore.tags"
            :key="index"
            class="tag-row">
 
         <input class="form-check-input"
                type="checkbox"
-               <!--v-model="tag.enabled"-->Tag
+               v-model="tag.enabled" />
 
         <div class="preview-tag"
              :style="{ backgroundColor: '#' + tag.color }">
           {{ tag.details }}
           <i :class="`bi bi-${tag.icon}`"></i>
         </div>
+
 
       </div>
 
@@ -57,7 +57,7 @@
         </label>
 
         <input class="form-control"
-               <!--v-model="newTag.details"-->
+               v-model="newTag.details" />
       </div>
 
       <div class="mb-3">
@@ -67,7 +67,7 @@
 
         <input class="form-control"
                placeholder="FFFFFF"
-               <!--v-model="newTag.color"-->
+               v-model="newTag.color" />
       </div>
 
       <div class="mb-4">
@@ -77,7 +77,7 @@
 
         <input class="form-control"
                placeholder="gear"
-               <!--v-model="newTag.icon"-->
+               v-model="newTag.icon" />
       </div>
 
       <button class="btn btn-warning w-100"
