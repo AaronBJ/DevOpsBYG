@@ -116,6 +116,12 @@ namespace DevOpsBygController.Controllers
 
         }
 
+        /// <summary>
+        /// el id es el id del inventario
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
         [HttpGet("GetTags{id}")]
 
         public async Task<IActionResult> GetTags(int id)

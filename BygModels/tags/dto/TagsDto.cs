@@ -10,7 +10,7 @@ namespace BygModels.tags.dto
         public string Details { get; set; }
         public string Color { get; set; }
         public bool IsDeleted { get; set; }
-
         public string Icon { get; set; }
+        public bool IsEnable { get; set; }
     }
 }

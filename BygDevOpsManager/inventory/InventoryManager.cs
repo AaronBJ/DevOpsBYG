@@ -1,6 +1,7 @@
 ﻿using BygDevOpsData.Models;
 using BygDevOpsData.tagsRepository;
 using BygModels.inventory;
+using BygModels.inventory.dto;
 using BygModels.inventory.model;
 using BygModels.inventoryTags;
 using BygModels.tags;
@@ -165,10 +166,32 @@ namespace BygDevOpsManager.inventory
 
             };
         }
-
-        public Task<IEnumerable<TagsDto>> GetTagsAsync(int id)
+        /// <summary>
+        /// el id es el id del inventario
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<InventoryTagsDto> GetTagsAsync(int inventarioId)
         {
-            throw new NotImplementedException();
+            var inventario = await _inventory.GetAsync(inventarioId);
+
+            var inventoryDetails = new InventoryTagsDto();
+
+            var lista = inventario.Tags.Select(t => new TagsDto()
+            {
+                Color= t.Color,
+                Icon= t.Icon,
+                Details= t.Details,
+                IsDeleted= t.IsDeleted,
+                Id= t.Id
+            });
+
+            inventoryDetails.Details = inventario.Description;
+            inventoryDetails.TagList = lista;
+            inventoryDetails.InventarioId = inventarioId;
+
+            return inventoryDetails;
+
         }
 
         #endregion

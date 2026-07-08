@@ -1,4 +1,5 @@
-﻿using BygModels.inventory.model;
+﻿using BygModels.inventory.dto;
+using BygModels.inventory.model;
 using BygModels.tags.dto;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BygModels.inventory
 
         public Task DeleteAsync(int id);
 
-        public Task<IEnumerable<TagsDto>> GetTagsAsync(int id);
+        public Task<InventoryTagsDto> GetTagsAsync(int inventarioId);
 
 
     }
