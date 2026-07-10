@@ -1,10 +1,21 @@
 <script setup lang="ts">
-  import { ref } from "vue";
   import type { TagModel } from "@/interFaces/tagsModel"
   import { useTagsStore } from '@/setup/tagsService'
+  import { useRouter, useRoute } from "vue-router";
+  import axios from "axios";
+  import { ref, onMounted } from "vue";
+
 
 
   const tagsStore = useTagsStore();
+  const $route = useRoute();
+  const $router = useRouter();
+
+
+  // function goTo(route: string) {
+  //   $router.push("/" + route);
+  // }
+
 
 
   const newTag = ref({
@@ -13,8 +24,36 @@
     icon: ""
   });
 
+  interface tagViewModel{
+    details: "",
+    color: "",
+    icon: ""
+  };
+
+  interface InventoryTagsViewModel {
+    inventarioId: number;
+    details: string;
+    tagList: tagViewModel[];
+  }
 
   function updateTags() { }
+
+  const inventoryTagsData = ref<InventoryTagsViewModel[]>([]);
+
+  async function getInventarioTags(viewModelId: any) {
+    try {
+      const response = await axios.get(`https://localhost:44329/Inventory/GetTags/${viewModelId}`);
+      inventoryTagsData.value = response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+    const viewModelId = $route.query.inventarioId;
+
+    getInventarioTags(viewModelId);
+  
+
 
 
 </script>

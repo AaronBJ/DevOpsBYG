@@ -122,7 +122,7 @@ namespace DevOpsBygController.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
 
-        [HttpGet("GetTags{id}")]
+        [HttpGet("GetTags/{id}")]
 
         public async Task<IActionResult> GetTags(int id)
         {
