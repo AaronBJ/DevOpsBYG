@@ -1,5 +1,6 @@
 ﻿using BygDevOpsData.Data;
 using BygDevOpsData.Models;
+using BygModels.inventory.da;
 using BygModels.inventoryTags;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,8 @@ namespace BygDevOpsData.InventoryTagsManager
 {
     public class InventoryTagsRepository : IInventoryTagsRepository
     {
+
+
         public async Task DeleteAllAsync(int inventoryId)
         {
             using (var ctx = new AppDbContext())
@@ -37,5 +40,14 @@ namespace BygDevOpsData.InventoryTagsManager
 
             };
         }
+
+        public async Task<InventoryTagsDa> GetInventoryTagsAsync(int inventoryId)
+        {
+
+
+            return null;
+        }
+
+
     }
 }
