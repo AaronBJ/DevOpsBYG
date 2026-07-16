@@ -173,11 +173,11 @@ namespace BygDevOpsManager.inventory
         /// <returns></returns>
         public async Task<InventoryTagsDto> GetTagsAsync(int inventarioId)
         {
-            var inventario = await _inventory.GetAsync(inventarioId);
+            var inventario = await _inventoryTagsRepository.GetInventoryTagsAsync(inventarioId);
 
             var inventoryDetails = new InventoryTagsDto();
 
-            var lista = inventario.Tags.Select(t => new TagsDto()
+            var lista = inventario.TagList.Select(t => new TagsDto()
             {
                 Color= t.Color,
                 Icon= t.Icon,
@@ -186,7 +186,7 @@ namespace BygDevOpsManager.inventory
                 Id= t.Id
             });
 
-            inventoryDetails.Details = inventario.Description;
+            inventoryDetails.Details = inventario.Details;
             inventoryDetails.TagList = lista;
             inventoryDetails.InventarioId = inventarioId;
 

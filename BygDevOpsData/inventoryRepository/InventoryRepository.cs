@@ -57,16 +57,16 @@ namespace BygDevOpsData.inventoryRepository
                     Quantity = x.quantity,
                     Description = x.details,
                     Image = x.imageurl,
-                    Tags = x.inventory_tags
-                        .Select(it => new TagsBaseModel
-                        {
-                            Id = it.tags.id,
-                            Color = it.tags.color,
-                            Icon = it.tags.iconos,
-                            Details = it.tags.details,
+                    //Tags = x.
+                    //    .Select(it => new TagsBaseModel
+                    //    {
+                    //        Id = it.tags.id,
+                    //        Color = it.tags.color,
+                    //        Icon = it.tags.iconos,
+                    //        Details = it.tags.details,
 
-                        })
-                        .ToList()
+                    //    })
+                    //    .ToList()
                 })
                 .FirstAsync();
 

@@ -14,7 +14,4 @@ public partial class inventory
     public string imageurl { get; set; } = null!;
 
     public bool is_deleted { get; set; }
-
-    public virtual ICollection<inventory_tags> inventory_tags { get; set; } = new List<inventory_tags>();
-
 }

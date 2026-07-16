@@ -2,6 +2,7 @@
 using BygDevOpsData.Models;
 using BygModels.inventory.da;
 using BygModels.inventoryTags;
+using BygModels.tags.da;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -43,9 +44,29 @@ namespace BygDevOpsData.InventoryTagsManager
 
         public async Task<InventoryTagsDa> GetInventoryTagsAsync(int inventoryId)
         {
+            var objectToReturn = new InventoryTagsDa();
 
+            using (var ctx = new AppDbContext())
+            {
+                var temporal = await ctx.vista_inventory_alltags
+                    .Where(x => x.inventory_id == inventoryId)
+                    .ToListAsync();
 
-            return null;
+                objectToReturn.Details = temporal.FirstOrDefault().inventory_detail;
+                objectToReturn.InventarioId = inventoryId;
+                objectToReturn.TagList = temporal.Select(x => new TagsDa()
+                {
+                    Color = x.color,
+                    Details = x.tag_detail,
+                    Icon = x.icons,
+                    Id = x.tag_id,
+                    IsEnable = x.is_enable == 1
+                                                            
+                });
+            
+            }
+            
+            return objectToReturn;
         }
 
 
