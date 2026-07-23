@@ -81,7 +81,40 @@ namespace BygDevOpsManager.inventory
 
         public async Task<InventoryBaseModel> GetAsync(int id)
         {
-           return await _inventory.GetAsync(id);
+            var objectToReturn = new InventoryBaseModel();
+
+
+            var objectTemp = await _inventory.GetAsync(id);
+
+            var objectTempFirst = objectTemp.First();
+
+            objectToReturn.Description = objectTempFirst.InventoryDescription;
+            objectToReturn.Image = objectTempFirst.InventoryImage;
+            objectToReturn.Quantity = objectTempFirst.InventoryQuantity;
+            objectToReturn.Id = objectTempFirst.InventoryId;
+
+            objectToReturn.Tags = new List<TagsBaseModel>();
+
+            foreach (var item in objectTemp)
+            {
+                var tmpTag = new TagsBaseModel()
+                {
+                    Color = item.TagColor,
+                    Details = item.TagDetails,
+                    Icon = item.TagIcon,
+                    Id = item.InventoryId,
+                    IsDeleted = item.TagIsDeleted,
+
+
+                };
+
+                objectToReturn.Tags.Add(tmpTag);
+            }
+
+
+
+            return objectToReturn;
+
         }
 
         public async Task<InventoryBaseModel> InsertAsync(InventoryBaseModel model)

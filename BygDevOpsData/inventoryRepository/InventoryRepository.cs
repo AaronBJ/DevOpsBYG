@@ -1,6 +1,7 @@
 ﻿using BygDevOpsData.Data;
 using BygDevOpsData.Models;
 using BygModels.inventory;
+using BygModels.inventory.da;
 using BygModels.inventory.model;
 using BygModels.tags.model;
 using BygModels.views;
@@ -45,30 +46,27 @@ namespace BygDevOpsData.inventoryRepository
             ;
         }
 
-        public async Task<InventoryBaseModel> GetAsync(int id)
+        public async Task<IEnumerable<InventoryDetailsDa>> GetAsync(int id)
         {
             using (var ctx = new AppDbContext())
             {
-                var objectToReturn = await ctx.inventory
-                .Where(x => x.id == id)
-                .Select(x => new InventoryBaseModel
+                var objectToReturn = await ctx.vista_inventory_tags
+                .Where(x => x.inventory_id == id)
+                .Select(x => new InventoryDetailsDa()
                 {
-                    Id = x.id,
-                    Quantity = x.quantity,
-                    Description = x.details,
-                    Image = x.imageurl,
-                    //Tags = x.
-                    //    .Select(it => new TagsBaseModel
-                    //    {
-                    //        Id = it.tags.id,
-                    //        Color = it.tags.color,
-                    //        Icon = it.tags.iconos,
-                    //        Details = it.tags.details,
+                    InventoryId = x.inventory_id,
+                    InventoryQuantity = x.inventory_quantity,
+                    InventoryDescription = x.inventory_details,
+                    InventoryImage = x.inventory_image,
+                    TagIcon = x.tags_icons,
+                    TagColor = x.tags_color,
+                    TagDetails = x.tags_details,
+                    TagId = x.tags_id.Value,
+                    TagIsDeleted = x.tags_is_deleted.Value,
+                    TagIsEnable = true
 
-                    //    })
-                    //    .ToList()
                 })
-                .FirstAsync();
+                .ToListAsync();
 
                 return objectToReturn;
 

@@ -60,8 +60,8 @@ namespace BygDevOpsData.InventoryTagsManager
                     Details = x.tag_detail,
                     Icon = x.icons,
                     Id = x.tag_id,
-                    IsEnable = x.is_enable == 1
-                                                            
+                    IsEnable = x.is_enable == 1 ? true : false
+
                 });
             
             }

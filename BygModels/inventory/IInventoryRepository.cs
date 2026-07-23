@@ -1,4 +1,5 @@
-﻿using BygModels.inventory.model;
+﻿using BygModels.inventory.da;
+using BygModels.inventory.model;
 using BygModels.views;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace BygModels.inventory
 
         public Task<InventoryBaseModel> UpdateAsync( int id , InventoryBaseModel model);
 
-        public Task<InventoryBaseModel> GetAsync(int id);
+        public Task<IEnumerable<InventoryDetailsDa>> GetAsync(int id);
 
         public Task DeleteAsync(int id);
     }

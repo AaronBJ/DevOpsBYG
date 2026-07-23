@@ -60,7 +60,6 @@
 
 <template>
   <div class="container page-container">
-    {{inventoryTagsData}}
     <div class="card shadow p-4 tag-box">
 
       <h3 class="text-center mb-4">
@@ -73,7 +72,7 @@
 
         <input class="form-check-input"
                type="checkbox"
-               v-model="inventoryTagsData.isEnable" />
+               v-model="tag.isEnable" />
 
         <div class="preview-tag"
              :style="{ backgroundColor: '#' + tag.color }">
