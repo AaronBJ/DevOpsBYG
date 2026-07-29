@@ -36,7 +36,12 @@
     tagList: tagViewModel[];
   }
 
-  function updateTags() { }
+  function goToEdit( Id: number) {
+    console.log("Ir a:", $route);
+    $router.push( 'inventarioEditar' + "?id=" + Id)
+  }
+
+
 
   const inventoryTagsData = ref<InventoryTagsViewModel[]>([]);
 
@@ -49,11 +54,22 @@
     }
   }
 
-    const viewModelId = $route.query.inventarioId;
+  const viewModelId: number = Number($route.query.inventarioId);
 
     getInventarioTags(viewModelId);
   
-
+  async function updateTags() {
+    try {
+      await axios.put(
+        `https://localhost:44329/Inventory/UpdateInventoryTags/${viewModelId}`,
+        inventoryTagsData.value
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      goToEdit(viewModelId);
+    }
+  }
 
 
 </script>

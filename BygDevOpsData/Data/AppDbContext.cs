@@ -49,7 +49,7 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<inventory_tags>(entity =>
         {
-            entity.HasNoKey();
+            entity.HasKey(e => new { e.inventario_id, e.tags_id });
 
             entity.HasIndex(e => e.inventario_id, "inventario_id");
 

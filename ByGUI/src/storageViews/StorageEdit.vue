@@ -55,13 +55,6 @@ const viewModelQuantity = ref<number>(0);
     });
   }
 
-  function removeTag(index: number) {
-    viewModelTags.value.splice(index, 1);
-  }
-
-
-
-
 
   /* Cargar datos al entrar */
 
@@ -241,11 +234,6 @@ onMounted(async () => {
             </div>
 
             <div class="col-4 d-flex align-items-end">
-              <button type="button"
-                      class="btn btn-danger w-100"
-                      @click="removeTag(index)">
-                Eliminar
-              </button>
             </div>
 
           </div>
@@ -255,7 +243,7 @@ onMounted(async () => {
               <button type="button"
                       class="btn btn-primary w-100"
                       @click="goToTags()">
-                + Agregar Tag
+                Administrar Tags
               </button>
             </div>
           </div>

@@ -19,6 +19,8 @@ namespace BygModels.inventory
 
         public Task<InventoryTagsDto> GetTagsAsync(int inventarioId);
 
+        public Task UpdateInventoryTagsAsync(int inventoryId, IEnumerable<TagsDto> tagList);
+
 
     }
 }

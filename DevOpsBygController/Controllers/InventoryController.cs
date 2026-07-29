@@ -3,6 +3,7 @@ using BygModels.inventory;
 using BygModels.inventory.dto;
 using BygModels.inventory.model;
 using BygModels.Inventory.dto;
+using BygModels.tags.dto;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -135,5 +136,14 @@ namespace DevOpsBygController.Controllers
 
         }
 
+        [HttpPut("UpdateInventoryTags/{inventoryId}")]
+
+        public async Task<IActionResult> UpdateInventoryTagsAsync(int inventoryId,
+    [FromBody] IEnumerable<TagsDto> tagList)
+        {
+            await _inventoryManager.UpdateInventoryTagsAsync(inventoryId, tagList);
+
+            return Ok();
+        }
     }
 }

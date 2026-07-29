@@ -20,11 +20,9 @@ namespace BygDevOpsData.InventoryTagsManager
             {
                 var recordsToDelete = await ctx.inventory_tags
                     .Where(x => x.inventario_id == inventoryId)
-                    .ToListAsync();
+                    .ExecuteDeleteAsync();
 
-                ctx.inventory_tags.RemoveRange(recordsToDelete);
 
-                await ctx.SaveChangesAsync();
             }
         }
 

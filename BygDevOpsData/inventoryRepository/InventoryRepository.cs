@@ -61,8 +61,8 @@ namespace BygDevOpsData.inventoryRepository
                     TagIcon = x.tags_icons,
                     TagColor = x.tags_color,
                     TagDetails = x.tags_details,
-                    TagId = x.tags_id.Value,
-                    TagIsDeleted = x.tags_is_deleted.Value,
+                    TagId = x.tags_id.Value==null ? 0 : x.tags_id.Value ,
+                    TagIsDeleted = x.tags_is_deleted.Value==null ? false : x.tags_is_deleted.Value,
                     TagIsEnable = true
 
                 })
