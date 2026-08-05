@@ -62,7 +62,7 @@
     try {
       await axios.put(
         `https://localhost:44329/Inventory/UpdateInventoryTags/${viewModelId}`,
-        inventoryTagsData.value
+        tagsStore.tags
       );
     } catch (error) {
       console.error(error);
