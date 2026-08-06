@@ -19,7 +19,10 @@ export default createRouter({
     {
       path: '/inventarioEditar',
       component: () => import('./storageViews/StorageEdit.vue'),
-
-    }
+    },
+    {
+      path: '/inventarioEditarTagsView',
+      component: () => import('./storageViews/StorageEditTagsView.vue')
+    },
   ],
 })

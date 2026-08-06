@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "ByGUI\\bygui.esproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "DevOpsBygController\\DevOpsBygController.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

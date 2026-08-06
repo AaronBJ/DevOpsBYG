@@ -23,6 +23,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<tags> tags { get; set; }
 
+    public virtual DbSet<vista_inventory_alltags> vista_inventory_alltags { get; set; }
+
     public virtual DbSet<vista_inventory_tags> vista_inventory_tags { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -47,7 +49,7 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<inventory_tags>(entity =>
         {
-            entity.HasNoKey();
+            entity.HasKey(e => new { e.inventario_id, e.tags_id });
 
             entity.HasIndex(e => e.inventario_id, "inventario_id");
 
@@ -60,21 +62,7 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.tags).WithMany()
                 .HasForeignKey(d => d.tags_id)
                 .HasConstraintName("inventory_tags_ibfk_2");
-
-
         });
-
-        modelBuilder.Entity<inventory_tags>().HasKey(it => new { it.inventario_id, it.tags_id });
-
-        modelBuilder.Entity<inventory_tags>()
-            .HasOne(it => it.inventario)
-            .WithMany(i => i.inventory_tags)
-            .HasForeignKey(it => it.inventario_id);
-
-        modelBuilder.Entity<inventory_tags>()
-            .HasOne(it => it.tags)
-            .WithMany()
-            .HasForeignKey(it => it.tags_id);
 
         modelBuilder.Entity<tags>(entity =>
         {
@@ -86,6 +74,18 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.details).HasMaxLength(30);
             entity.Property(e => e.iconos).HasMaxLength(20);
             entity.Property(e => e.is_deleted).HasDefaultValueSql("'0'");
+        });
+
+        modelBuilder.Entity<vista_inventory_alltags>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vista_inventory_alltags");
+
+            entity.Property(e => e.color).HasMaxLength(6);
+            entity.Property(e => e.icons).HasMaxLength(20);
+            entity.Property(e => e.inventory_detail).HasMaxLength(30);
+            entity.Property(e => e.tag_detail).HasMaxLength(30);
         });
 
         modelBuilder.Entity<vista_inventory_tags>(entity =>

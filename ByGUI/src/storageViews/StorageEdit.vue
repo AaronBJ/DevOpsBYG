@@ -26,7 +26,11 @@ console.log(tagsStore)
 
   const viewModelTags = ref<TagModel[]>([]);
 
+  const viewModelId = $route.query.id;
 
+  function goToTags() {
+    $router.push('/inventarioEditarTagsView?inventarioId='+viewModelId)
+  }
 
   function goToInventory(route: string) {
     $router.push('/inventario')
@@ -37,7 +41,6 @@ function goTo(route: string) {
 }
 
   /* ViewModel */
-  const viewModelId = $route.query.id;
 const viewModelDescription = ref<string>("");
 const viewModelQuantity = ref<number>(0);
   const viewModelImage = ref<string>("");
@@ -51,13 +54,6 @@ const viewModelQuantity = ref<number>(0);
       selectedOption: ""
     });
   }
-
-  function removeTag(index: number) {
-    viewModelTags.value.splice(index, 1);
-  }
-
-
-
 
 
   /* Cargar datos al entrar */
@@ -107,53 +103,69 @@ onMounted(async () => {
     }
   }
 
+  const isLocked = ref(true);
 
-  watch(viewModelTags, (newTags) => {
+  function toggleLock() {
+    isLocked.value = !isLocked.value;
+  }
 
-    newTags.forEach(tag => {
-      if (tag.selectedOption !== 'otro') {
-        // Si NO es "otro", el valor viene del select
-        tag.details = tag.selectedOption;
-      } else {
-        // Si es "otro", permites escribir (no haces nada)
-        if (tag.details === tag.selectedOption) {
-          tag.details = ''; // opcional: limpiar cuando cambia a "otro"
-        }
-      }
-    });
-  }, { deep: true });
+  function getTagStyleDot(tag: any) {
+    return {
+      backgroundColor: `#${tag.color}`,
+      padding: '4px 15px',
+      borderRadius: '8px',
+    }
+  }
 
 
 </script>
 
 <template>
   <div class="container">
+
     <div class="row">
       <div class="col-6 offset-3 o text-center">
-        <h1>Editar inventario</h1>
+        <h1>Informacion</h1>  
       </div>
-
       <div class="col-3">
-        <button class="float-rigth btn btn-danger" @click="goToInventory('inventario')" >regresar</button>
+        <button class="float-rigth btn btn-danger" @click="goToInventory('inventario')">regresar</button>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-12">
+      <div class="col-6">
+        <img v-if="viewModelImage"
+             :src="`/mediafiles/${viewModelImage}`"
+             alt="imagen"
+             height="300" />
+      </div>
+
+      <div class="col-6">
         <form>
           <div class="row">
-            <div class="col-12">
-              <label>ID:</label>
-              <input class="form-control"
-                     type="text"
-                     readonly
-                     v-model="viewModelId" />
+            <div class="col-6">
+              <div class="box-id ">
+                ID:{{viewModelId}}
+              </div>
             </div>
+
+
+            <div class="col-6">
+
+              <button type="button"
+                      class="btn btn-warning margin-boton-amarillo "
+                      @click="toggleLock">
+                <i :class="isLocked ? 'bi bi-lock' : 'bi bi-unlock'"></i>
+              </button>
+
+            </div>
+
           </div>
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 negritas">
               <label>Descripción:</label>
               <input class="form-control"
+                     :disabled="isLocked"
                      type="text"
                      v-model="viewModelDescription" />
             </div>
@@ -164,18 +176,20 @@ onMounted(async () => {
               <label>Cantidad:</label>
               <input class="form-control"
                      type="number"
-                     v-model="viewModelQuantity" />
+                     v-model="viewModelQuantity"
+                     :disabled="isLocked" />
             </div>
             <div class="col-6">
               <label>Imagen:</label>
               <input class="form-control"
                      type="text"
-                     v-model="viewModelImage" />
+                     v-model="viewModelImage"
+                     :disabled="isLocked" />
             </div>
           </div>
 
           <br />
-          <hr />
+
 
           <div class="row">
             <div class="col-12">
@@ -183,40 +197,43 @@ onMounted(async () => {
             </div>
           </div>
 
+
           <div v-for="(tag, index) in viewModelTags" :key="index" class="row mb-2">
-            <div class="col-3">
-              <select v-model="tag.selectedOption" class="form-select" id="tagOptoions" name="tags">
+            <!--<div class="col-4">-->
+              <!--<select v-model="tag.selectedOption" class="form-select" id="tagOptoions" name="tags">
                 <option v-for="tagItem in tagsStore.tags" :value="tagItem">{{tagItem}}</option>
                 <option value="otro">Otro</option>
-              </select>
-            </div>
-            <div class="col-3">
-              <input class="form-control"
+              </select>-->
+            <!--</div>-->
+            <div class="col-4">
+
+              <div :style="getTagStyleDot(tag)">
+
+                {{tag.details}}
+                <i  :class="`bi bi-${tag.icon}`" ></i>
+
+
+
+
+              </div>
+              
+              <!--<input class="form-control"
                      placeholder="Detalle"
                      v-model="tag.details"
-                     :disabled="tag.selectedOption !== 'otro'"/>
-            </div>
+                     :disabled="tag.selectedOption !== 'otro'" />
 
-            <div class="col-3">
               <input class="form-control"
                      placeholder="Color (ej: FF0000)"
                      v-model="tag.color"
-                     :disabled="tag.selectedOption !== 'otro'"/>
-            </div>
+                     :disabled="tag.selectedOption !== 'otro'" />
 
-            <div class="col-3">
               <input class="form-control"
                      placeholder="Icon (ej: gear)"
                      v-model="tag.icon"
-                     :disabled="tag.selectedOption !== 'otro'"/>
+                     :disabled="tag.selectedOption !== 'otro'" />-->
             </div>
 
-            <div class="col-3 d-flex align-items-end">
-              <button type="button"
-                      class="btn btn-danger w-100"
-                      @click="removeTag(index)">
-                Eliminar
-              </button>
+            <div class="col-4 d-flex align-items-end">
             </div>
 
           </div>
@@ -225,13 +242,13 @@ onMounted(async () => {
             <div class="col-12">
               <button type="button"
                       class="btn btn-primary w-100"
-                      @click="addTag">
-                + Agregar Tag
+                      @click="goToTags()">
+                Administrar Tags
               </button>
             </div>
           </div>
           <br />
-          <hr />
+
           <div class="row">
             <div class="col-12">
               <input class="btn btn-warning w-100"
@@ -246,9 +263,29 @@ onMounted(async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 
   .float-rigth{
     float:right;
   }
+
+  .margin-boton-amarillo{
+      float:right
+
+  }
+
+  .box-id {
+    background-color: #B5B5B5;
+    border-radius: 5px;
+    color: #555555;
+    padding-left: 15px;
+  }
+
+  .negritas{
+      font-weight:700;
+  }
+
+
+
+
 </style>

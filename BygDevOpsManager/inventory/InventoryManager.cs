@@ -1,9 +1,11 @@
 ﻿using BygDevOpsData.Models;
 using BygDevOpsData.tagsRepository;
 using BygModels.inventory;
+using BygModels.inventory.dto;
 using BygModels.inventory.model;
 using BygModels.inventoryTags;
 using BygModels.tags;
+using BygModels.tags.dto;
 using BygModels.tags.model;
 using BygModels.views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -45,17 +47,24 @@ namespace BygDevOpsManager.inventory
 
                 if (tmp == null) {
                     var ListaDeTags = new List<TagsBaseModel>();
-                    ListaDeTags.Add(Convert(item.Tags.FirstOrDefault()));
-                    lista.Add(new InventoryBaseModel()
+                    var tagConvertido = Convert(item.Tags.FirstOrDefault());
+                    if (tagConvertido != null)
                     {
-                        Id = item.InventoryId,
-                        Description = item.InventoryDetails,
-                        Image = item.InventoryImage,
-                        Quantity = item.InventoryQuantity,
-                        Tags = ListaDeTags,
 
 
-                    });
+                        ListaDeTags.Add(Convert(item.Tags.FirstOrDefault()));
+                    }
+                        lista.Add(new InventoryBaseModel()
+                        {
+                            Id = item.InventoryId,
+                            Description = item.InventoryDetails,
+                            Image = item.InventoryImage,
+                            Quantity = item.InventoryQuantity,
+                            Tags = ListaDeTags,
+
+
+                        });
+                    
 
                 }
                 else
@@ -72,7 +81,40 @@ namespace BygDevOpsManager.inventory
 
         public async Task<InventoryBaseModel> GetAsync(int id)
         {
-           return await _inventory.GetAsync(id);
+            var objectToReturn = new InventoryBaseModel();
+
+
+            var objectTemp = await _inventory.GetAsync(id);
+
+            var objectTempFirst = objectTemp.First();
+
+            objectToReturn.Description = objectTempFirst.InventoryDescription;
+            objectToReturn.Image = objectTempFirst.InventoryImage;
+            objectToReturn.Quantity = objectTempFirst.InventoryQuantity;
+            objectToReturn.Id = objectTempFirst.InventoryId;
+
+            objectToReturn.Tags = new List<TagsBaseModel>();
+
+            foreach (var item in objectTemp)
+            {
+                var tmpTag = new TagsBaseModel()
+                {
+                    Color = item.TagColor,
+                    Details = item.TagDetails,
+                    Icon = item.TagIcon,
+                    Id = item.InventoryId,
+                    IsDeleted = item.TagIsDeleted,
+
+
+                };
+
+                objectToReturn.Tags.Add(tmpTag);
+            }
+
+
+
+            return objectToReturn;
+
         }
 
         public async Task<InventoryBaseModel> InsertAsync(InventoryBaseModel model)
@@ -96,30 +138,7 @@ namespace BygDevOpsManager.inventory
             if (elementToUpdate != null)
             {
 
-                var arregloTags = model.Tags;
-
-                await _inventoryTagsRepository.DeleteAllAsync(id);
-
-                foreach (var tag in arregloTags)
-                {
-
-                    var tagId = await _tagsRepository.IsExistsAsync(tag.Details);
-                    if (tagId == 0)
-                    {
-
-                        var tmpId = await _tagsRepository.InsertTagsAsync(tag.Details, tag.Icon, tag.Color);
-                        await _inventoryTagsRepository.InsertAsync(id, tmpId);
-
-                    }
-                    else
-                    {
-                        await _inventoryTagsRepository.InsertAsync(id,tagId);
-                    }
-
-
-                }
-
-
+              
                 var elementsToReturn = await _inventory.UpdateAsync(id, model);
 
                 return elementsToReturn;
@@ -140,9 +159,15 @@ namespace BygDevOpsManager.inventory
 
         }
 
+
         #region
         public TagsBaseModel Convert(InventoryTagsViewTagsBaseModel ObjectToConvert)
         {
+            if( ObjectToConvert.TagsId == 0 && ObjectToConvert.TagsDetails == null)
+            {
+                return null;
+            }
+
             return new TagsBaseModel()
             {
                 Color = ObjectToConvert.TagsColor,
@@ -151,6 +176,63 @@ namespace BygDevOpsManager.inventory
                 Icon = ObjectToConvert.TagsIcons
 
             };
+        }
+        /// <summary>
+        /// el id es el id del inventario
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<InventoryTagsDto> GetTagsAsync(int inventarioId)
+        {
+            var inventario = await _inventoryTagsRepository.GetInventoryTagsAsync(inventarioId);
+
+            var inventoryDetails = new InventoryTagsDto();
+
+            var lista = inventario.TagList.Select(t => new TagsDto()
+            {
+                Color= t.Color,
+                Icon= t.Icon,
+                Details= t.Details,
+                IsDeleted= t.IsDeleted,
+                Id= t.Id
+            });
+
+            inventoryDetails.Details = inventario.Details;
+            inventoryDetails.TagList = lista;
+            inventoryDetails.InventarioId = inventarioId;
+
+            return inventoryDetails;
+
+        }
+
+        public async Task UpdateInventoryTagsAsync(int inventoryId, IEnumerable<TagsDto> arregloTags)
+        {
+            await _inventoryTagsRepository.DeleteAllAsync(inventoryId);
+
+            foreach (var tag in arregloTags)
+            {
+
+                var tagId = await _tagsRepository.IsExistsAsync(tag.Details);
+                if (tagId == 0)
+                {
+
+                    var tmpId = await _tagsRepository.InsertTagsAsync(tag.Details, tag.Icon, tag.Color);
+                    await _inventoryTagsRepository.InsertAsync(inventoryId, tmpId);
+
+                }
+                else
+                {
+
+                    if (tag.IsEnable)
+                    {
+                        await _inventoryTagsRepository.InsertAsync(inventoryId, tagId);
+
+                    }
+                }
+
+
+            }
+
         }
 
         #endregion
