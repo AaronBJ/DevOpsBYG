@@ -46,12 +46,12 @@ namespace BygDevOpsData.inventoryRepository
             ;
         }
 
-        public async Task<IEnumerable<InventoryDetailsDa>> GetAsync(int id)
+        public async Task<IEnumerable<InventoryDetailsDa>> GetAsync(int inventoryId)
         {
             using (var ctx = new AppDbContext())
             {
                 var objectToReturn = await ctx.vista_inventory_tags
-                .Where(x => x.inventory_id == id)
+                .Where(x => x.inventory_id == inventoryId)
                 .Select(x => new InventoryDetailsDa()
                 {
                     InventoryId = x.inventory_id,

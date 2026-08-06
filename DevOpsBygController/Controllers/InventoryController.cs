@@ -66,7 +66,6 @@ namespace DevOpsBygController.Controllers
             if (id != requestDto.Id)
             {
 
-
                 return BadRequest("los id no coinciden");
             }
             var model = new InventoryBaseModel();
@@ -98,22 +97,17 @@ namespace DevOpsBygController.Controllers
                 Quantity = result.Quantity,
                 Image = result.Image,
                 Tags = result.Tags
-                
             };
             return Ok(dto);
 
         }
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _inventoryManager.DeleteAsync(id);
 
-
             return Ok();
-
-
 
         }
 
@@ -130,16 +124,11 @@ namespace DevOpsBygController.Controllers
             var result = await _inventoryManager.GetTagsAsync(id);
            
             return Ok(result);
-
-
-
-
         }
 
         [HttpPut("UpdateInventoryTags/{inventoryId}")]
 
-        public async Task<IActionResult> UpdateInventoryTagsAsync(int inventoryId,
-    [FromBody] IEnumerable<TagsDto> tagList)
+        public async Task<IActionResult> UpdateInventoryTagsAsync(int inventoryId,[FromBody] IEnumerable<TagsDto> tagList)
         {
             await _inventoryManager.UpdateInventoryTagsAsync(inventoryId, tagList);
 

@@ -46,13 +46,13 @@ namespace BygDevOpsManager.inventory
                 var tmp = lista.Find(x => x.Id == item.InventoryId);
 
                 if (tmp == null) {
-                    var ListaDeTags = new List<TagsBaseModel>();
+                    var listaDeTags = new List<TagsBaseModel>();
                     var tagConvertido = Convert(item.Tags.FirstOrDefault());
                     if (tagConvertido != null)
                     {
 
 
-                        ListaDeTags.Add(Convert(item.Tags.FirstOrDefault()));
+                        listaDeTags.Add(Convert(item.Tags.FirstOrDefault()));
                     }
                         lista.Add(new InventoryBaseModel()
                         {
@@ -60,7 +60,7 @@ namespace BygDevOpsManager.inventory
                             Description = item.InventoryDetails,
                             Image = item.InventoryImage,
                             Quantity = item.InventoryQuantity,
-                            Tags = ListaDeTags,
+                            Tags = listaDeTags,
 
 
                         });
@@ -83,10 +83,9 @@ namespace BygDevOpsManager.inventory
         {
             var objectToReturn = new InventoryBaseModel();
 
+            var inventoryTemp = await _inventory.GetAsync(id);
 
-            var objectTemp = await _inventory.GetAsync(id);
-
-            var objectTempFirst = objectTemp.First();
+            var objectTempFirst = inventoryTemp.First();
 
             objectToReturn.Description = objectTempFirst.InventoryDescription;
             objectToReturn.Image = objectTempFirst.InventoryImage;
@@ -95,7 +94,7 @@ namespace BygDevOpsManager.inventory
 
             objectToReturn.Tags = new List<TagsBaseModel>();
 
-            foreach (var item in objectTemp)
+            foreach (var item in inventoryTemp)
             {
                 var tmpTag = new TagsBaseModel()
                 {
@@ -104,17 +103,12 @@ namespace BygDevOpsManager.inventory
                     Icon = item.TagIcon,
                     Id = item.InventoryId,
                     IsDeleted = item.TagIsDeleted,
-
-
                 };
 
                 objectToReturn.Tags.Add(tmpTag);
             }
 
-
-
             return objectToReturn;
-
         }
 
         public async Task<InventoryBaseModel> InsertAsync(InventoryBaseModel model)
@@ -158,22 +152,22 @@ namespace BygDevOpsManager.inventory
             
 
         }
-
+        
 
         #region
-        public TagsBaseModel Convert(InventoryTagsViewTagsBaseModel ObjectToConvert)
+        public TagsBaseModel Convert(InventoryTagsViewTagsBaseModel objectToConvert)
         {
-            if( ObjectToConvert.TagsId == 0 && ObjectToConvert.TagsDetails == null)
+            if( objectToConvert.TagsId == 0 && objectToConvert.TagsDetails == null)
             {
                 return null;
             }
 
             return new TagsBaseModel()
             {
-                Color = ObjectToConvert.TagsColor,
-                Id = ObjectToConvert.TagsId,
-                Details = ObjectToConvert.TagsDetails,
-                Icon = ObjectToConvert.TagsIcons
+                Color = objectToConvert.TagsColor,
+                Id = objectToConvert.TagsId,
+                Details = objectToConvert.TagsDetails,
+                Icon = objectToConvert.TagsIcons
 
             };
         }
