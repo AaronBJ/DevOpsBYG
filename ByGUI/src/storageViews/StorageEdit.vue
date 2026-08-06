@@ -11,9 +11,6 @@ const $router = useRouter();
 
   import { watch } from 'vue';
 
-
-
-
 console.log(tagsStore)
 
   interface InventoryModel {
@@ -55,7 +52,6 @@ const viewModelQuantity = ref<number>(0);
     });
   }
 
-
   /* Cargar datos al entrar */
 
 onMounted(async () => {
@@ -67,7 +63,6 @@ onMounted(async () => {
     const id = $route.query.id;
     const response = await axios.get(`https://localhost:44329/Inventory/${id}`);
     viewModelTags.value = response.data.tags ?? [];
-
 
     viewModelDescription.value = response.data.description;
     viewModelQuantity.value = response.data.quantity;
@@ -86,7 +81,6 @@ onMounted(async () => {
       quantity: viewModelQuantity.value,
       image: viewModelImage.value,
       tags: viewModelTags.value,
-
     };
 
     console.log("aqui esta el view model tags")
@@ -162,7 +156,7 @@ onMounted(async () => {
 
           </div>
           <div class="row">
-            <div class="col-12 negritas">
+            <div class="col-12 byg-bold">
               <label>Descripción:</label>
               <input class="form-control"
                      :disabled="isLocked"
@@ -199,43 +193,16 @@ onMounted(async () => {
 
 
           <div v-for="(tag, index) in viewModelTags" :key="index" class="row mb-2">
-            <!--<div class="col-4">-->
-              <!--<select v-model="tag.selectedOption" class="form-select" id="tagOptoions" name="tags">
-                <option v-for="tagItem in tagsStore.tags" :value="tagItem">{{tagItem}}</option>
-                <option value="otro">Otro</option>
-              </select>-->
-            <!--</div>-->
             <div class="col-4">
-
               <div :style="getTagStyleDot(tag)">
 
                 {{tag.details}}
                 <i  :class="`bi bi-${tag.icon}`" ></i>
-
-
-
-
               </div>
-              
-              <!--<input class="form-control"
-                     placeholder="Detalle"
-                     v-model="tag.details"
-                     :disabled="tag.selectedOption !== 'otro'" />
-
-              <input class="form-control"
-                     placeholder="Color (ej: FF0000)"
-                     v-model="tag.color"
-                     :disabled="tag.selectedOption !== 'otro'" />
-
-              <input class="form-control"
-                     placeholder="Icon (ej: gear)"
-                     v-model="tag.icon"
-                     :disabled="tag.selectedOption !== 'otro'" />-->
             </div>
 
             <div class="col-4 d-flex align-items-end">
             </div>
-
           </div>
 
           <div class="row">
@@ -281,11 +248,7 @@ onMounted(async () => {
     padding-left: 15px;
   }
 
-  .negritas{
+  .byg-bold{
       font-weight:700;
   }
-
-
-
-
 </style>

@@ -5,18 +5,9 @@
   import axios from "axios";
   import { ref, onMounted } from "vue";
 
-
-
   const tagsStore = useTagsStore();
   const $route = useRoute();
   const $router = useRouter();
-
-
-  // function goTo(route: string) {
-  //   $router.push("/" + route);
-  // }
-
-
 
   const newTag = ref({
     details: "",
@@ -41,8 +32,6 @@
     $router.push( 'inventarioEditar' + "?id=" + Id)
   }
 
-
-
   const inventoryTagsData = ref<InventoryTagsViewModel[]>([]);
 
   async function getInventarioTags(viewModelId: any) {
@@ -56,7 +45,7 @@
 
   const viewModelId: number = Number($route.query.inventarioId);
 
-    getInventarioTags(viewModelId);
+  getInventarioTags(viewModelId);
   
   async function updateTags() {
     try {
@@ -70,7 +59,6 @@
       goToEdit(viewModelId);
     }
   }
-
 
 </script>
 

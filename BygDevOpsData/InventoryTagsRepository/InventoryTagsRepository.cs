@@ -12,8 +12,6 @@ namespace BygDevOpsData.InventoryTagsManager
 {
     public class InventoryTagsRepository : IInventoryTagsRepository
     {
-
-
         public async Task DeleteAllAsync(int inventoryId)
         {
             using (var ctx = new AppDbContext())
@@ -21,8 +19,6 @@ namespace BygDevOpsData.InventoryTagsManager
                 var recordsToDelete = await ctx.inventory_tags
                     .Where(x => x.inventario_id == inventoryId)
                     .ExecuteDeleteAsync();
-
-
             }
         }
 
@@ -36,7 +32,6 @@ namespace BygDevOpsData.InventoryTagsManager
             {
                 ctx.inventory_tags.Add(newRecord);
                 await ctx.SaveChangesAsync();
-
             };
         }
 
@@ -59,14 +54,10 @@ namespace BygDevOpsData.InventoryTagsManager
                     Icon = x.icons,
                     Id = x.tag_id,
                     IsEnable = x.is_enable == 1 ? true : false
-
                 });
-            
             }
-            
+
             return objectToReturn;
         }
-
-
     }
 }
